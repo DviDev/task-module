@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Modules\Task\Entities\TaskCommentUpVoteEntityModel;
 
 class CreateTaskCommentUpVotes extends Migration
 {
@@ -16,9 +17,10 @@ class CreateTaskCommentUpVotes extends Migration
         Schema::create('task_comment_up_votes', function (Blueprint $table) {
             $table->id();
 
-            $table->bigInteger('comment_id')->unsigned();
-            $table->bigInteger('user_id')->unsigned();
-            $table->timestamp('created_at')->useCurrent();
+            $prop = TaskCommentUpVoteEntityModel::props(null, true);
+            $table->bigInteger($prop->comment_id)->unsigned();
+            $table->bigInteger($prop->user_id)->unsigned();
+            $table->timestamp($prop->created_at)->useCurrent();
         });
     }
 

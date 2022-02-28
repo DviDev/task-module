@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Modules\Task\Entities\TaskCommentEntityModel;
 
 class CreateTaskComments extends Migration
 {
@@ -16,11 +17,12 @@ class CreateTaskComments extends Migration
         Schema::create('task_comments', function (Blueprint $table) {
             $table->id();
 
-            $table->bigInteger('task_id')->unsigned();
-            $table->bigInteger('user_id')->unsigned();
-            $table->bigInteger('parent_id')->unsigned()->nullable();
-            $table->text('message');
-            $table->timestamp('created_at')->useCurrent();
+            $prop = TaskCommentEntityModel::props(null, true);
+            $table->bigInteger($prop->task_id)->unsigned();
+            $table->bigInteger($prop->user_id)->unsigned();
+            $table->bigInteger($prop->parent_id)->unsigned()->nullable();
+            $table->text($prop->message);
+            $table->timestamp($prop->created_at)->useCurrent();
         });
     }
 

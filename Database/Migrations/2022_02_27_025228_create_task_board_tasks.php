@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Modules\Task\Entities\TaskBoardTasksEntityModel;
 
 class CreateTaskBoardTasks extends Migration
 {
@@ -16,9 +17,10 @@ class CreateTaskBoardTasks extends Migration
         Schema::create('task_board_tasks', function (Blueprint $table) {
             $table->id();
 
-            $table->bigInteger('board_id')->unsigned();
-            $table->bigInteger('task_id')->unsigned();
-            $table->timestamp('created_at')->useCurrent();
+            $prop = TaskBoardTasksEntityModel::props(null, true);
+            $table->bigInteger($prop->board_id)->unsigned();
+            $table->bigInteger($prop->task_id)->unsigned();
+            $table->timestamp($prop->created_at)->useCurrent();
         });
     }
 
