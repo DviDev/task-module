@@ -16,9 +16,9 @@ class CreateTaskComments extends Migration
         Schema::create('task_comments', function (Blueprint $table) {
             $table->id();
 
-            $table->bigInteger('task_id');
-            $table->bigInteger('user_id');
-            $table->bigInteger('parent_id')->nullable();
+            $table->bigInteger('task_id')->unsigned();
+            $table->bigInteger('user_id')->unsigned();
+            $table->bigInteger('parent_id')->unsigned()->nullable();
             $table->text('message');
             $table->timestamp('created_at')->useCurrent();
         });

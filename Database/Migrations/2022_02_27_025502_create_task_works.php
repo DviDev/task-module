@@ -16,8 +16,8 @@ class CreateTaskWorks extends Migration
         Schema::create('task_works', function (Blueprint $table) {
             $table->id();
 
-            $table->bigInteger('task_id');
-            $table->bigInteger('user_id');
+            $table->bigInteger('task_id')->unsigned();
+            $table->bigInteger('user_id')->unsigned();
             $table->timestamp('task_start')->useCurrent();
             $table->timestamp('task_end')->nullable();
             $table->string('description', 200)->nullable();

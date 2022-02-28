@@ -16,13 +16,13 @@ class CreateTaskCategories extends Migration
         Schema::create('task_categories', function (Blueprint $table) {
             $table->id();
 
-            $table->bigInteger('project_id');
+            $table->bigInteger('project_id')->unsigned();
             $table->string('name', 50);
             $table->char('color', 50);
             $table->dateTime('start_date')->nullable();
             $table->dateTime('deadline')->nullable();
             $table->timestamp('created_at')->useCurrent();
-            $table->bigInteger('created_by_user_id');
+            $table->bigInteger('created_by_user_id')->unsigned();
         });
     }
 

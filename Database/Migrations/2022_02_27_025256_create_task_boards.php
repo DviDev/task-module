@@ -16,9 +16,9 @@ class CreateTaskBoards extends Migration
         Schema::create('task_boards', function (Blueprint $table) {
             $table->id();
 
-            $table->bigInteger('project_id');
+            $table->bigInteger('project_id')->unsigned();
             $table->string('name', 70);
-            $table->tinyInteger('order');
+            $table->tinyInteger('order')->unsigned();
         });
     }
 

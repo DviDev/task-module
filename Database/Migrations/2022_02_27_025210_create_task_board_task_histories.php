@@ -16,9 +16,9 @@ class CreateTaskBoardTaskHistories extends Migration
         Schema::create('task_board_task_histories', function (Blueprint $table) {
             $table->id();
 
-            $table->bigInteger('board_task_to_item_id');
+            $table->bigInteger('board_task_to_item_id')->unsigned();
             $table->dateTime('updated_at');
-            $table->bigInteger('updated_by_user_id');
+            $table->bigInteger('updated_by_user_id')->unsigned();
         });
     }
 

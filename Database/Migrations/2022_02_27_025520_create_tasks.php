@@ -18,22 +18,22 @@ class CreateTasks extends Migration
 
             $table->string('name', 150);
             $table->mediumText('description')->nullable();
-            $table->bigInteger('project_id');
-            $table->bigInteger('category_id')->nullable();
+            $table->bigInteger('project_id')->unsigned();
+            $table->bigInteger('category_id')->unsigned()->nullable();
             $table->mediumText('solution')->nullable();
-            $table->bigInteger('parent_id')->nullable();
-            $table->bigInteger('to_user_id')->nullable();
-            $table->integer('time_estimate')->nullable();
+            $table->bigInteger('parent_id')->unsigned()->nullable();
+            $table->bigInteger('to_user_id')->unsigned()->nullable();
+            $table->integer('time_estimate')->unsigned()->nullable();
             $table->dateTime('start_date')->nullable();
             $table->date('deadline')->nullable();
-            $table->char('priority', 6);
+            $table->tinyInteger('priority')->unsigned();
             $table->enum('status', ['closed','open','finalized','abandoned','in_progress']);
-            $table->smallInteger('num_order')->nullable();
-            $table->tinyInteger('percent_completed')->nullable();
+            $table->smallInteger('num_order')->unsigned()->nullable();
+            $table->tinyInteger('percent_completed')->unsigned()->nullable();
             $table->date('repeat_end')->nullable();
             $table->enum('repeat_type', ['dayly','weekly','monthly','trimester','quarterly','semiannually','annually'])->nullable();
-            $table->smallInteger('repeat_num')->nullable();
-            $table->boolean('active')->nullable();
+            $table->smallInteger('repeat_num')->unsigned()->nullable();
+            $table->boolean('active')->unsigned()->nullable();
             $table->timestamp('created_at')->useCurrent();
         });
     }

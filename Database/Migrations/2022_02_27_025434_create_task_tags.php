@@ -16,7 +16,7 @@ class CreateTaskTags extends Migration
         Schema::create('task_tags', function (Blueprint $table) {
             $table->id();
 
-            $table->bigInteger('task_id');
+            $table->bigInteger('task_id')->unsigned();
             $table->string('tag', 50);
         });
     }

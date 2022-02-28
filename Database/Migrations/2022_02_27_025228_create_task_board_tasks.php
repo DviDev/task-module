@@ -16,8 +16,8 @@ class CreateTaskBoardTasks extends Migration
         Schema::create('task_board_tasks', function (Blueprint $table) {
             $table->id();
 
-            $table->bigInteger('board_id');
-            $table->bigInteger('task_id');
+            $table->bigInteger('board_id')->unsigned();
+            $table->bigInteger('task_id')->unsigned();
             $table->timestamp('created_at')->useCurrent();
         });
     }
