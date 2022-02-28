@@ -19,9 +19,9 @@ class CreateTaskWorks extends Migration
             $table->bigInteger('task_id');
             $table->bigInteger('user_id');
             $table->timestamp('task_start')->useCurrent();
-            $table->timestamp('task_end');
-            $table->string('description', 200);
-            $table->timestamp('created_at');
+            $table->timestamp('task_end')->nullable();
+            $table->string('description', 200)->nullable();
+            $table->timestamp('created_at')->useCurrent();
         });
     }
 

@@ -18,7 +18,7 @@ class CreateTaskBoardTasks extends Migration
 
             $table->bigInteger('board_id');
             $table->bigInteger('task_id');
-            $table->timestamp('created_at');
+            $table->timestamp('created_at')->useCurrent();
         });
     }
 

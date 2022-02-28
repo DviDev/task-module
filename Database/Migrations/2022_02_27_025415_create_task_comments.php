@@ -18,9 +18,9 @@ class CreateTaskComments extends Migration
 
             $table->bigInteger('task_id');
             $table->bigInteger('user_id');
-            $table->bigInteger('parent_id');
+            $table->bigInteger('parent_id')->nullable();
             $table->text('message');
-            $table->dateTime('created_at');
+            $table->timestamp('created_at')->useCurrent();
         });
     }
 

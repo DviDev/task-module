@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTaskCommentVotes extends Migration
+class CreateTaskCommentUpVotes extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,12 @@ class CreateTaskCommentVotes extends Migration
      */
     public function up()
     {
-        Schema::create('task_comment_votes', function (Blueprint $table) {
+        Schema::create('task_comment_up_votes', function (Blueprint $table) {
             $table->id();
 
             $table->bigInteger('comment_id');
             $table->bigInteger('user_id');
-            $table->char('up_vote', 1);
-            $table->char('down_vote', 1);
-            $table->dateTime('created_at');
+            $table->timestamp('created_at')->useCurrent();
         });
     }
 
@@ -31,6 +29,6 @@ class CreateTaskCommentVotes extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('task_comment_votes');
+        Schema::dropIfExists('');
     }
 }

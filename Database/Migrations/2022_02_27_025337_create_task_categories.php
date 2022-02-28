@@ -18,11 +18,11 @@ class CreateTaskCategories extends Migration
 
             $table->bigInteger('project_id');
             $table->string('name', 50);
-            $table->timestamp('created_at');
-            $table->bigInteger('created_by_user_id');
             $table->char('color', 50);
-            $table->dateTime('start_date');
-            $table->dateTime('deadline');
+            $table->dateTime('start_date')->nullable();
+            $table->dateTime('deadline')->nullable();
+            $table->timestamp('created_at')->useCurrent();
+            $table->bigInteger('created_by_user_id');
         });
     }
 
