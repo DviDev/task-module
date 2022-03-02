@@ -3,9 +3,9 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use Modules\Task\Entities\TaskCommentEntityModel;
+use Modules\Task\Entities\TaskCommentUpVoteEntityModel;
 
-class CreateTaskComments extends Migration
+class CreateTaskCommentUpVotes extends Migration
 {
     /**
      * Run the migrations.
@@ -14,14 +14,12 @@ class CreateTaskComments extends Migration
      */
     public function up()
     {
-        Schema::create('task_comments', function (Blueprint $table) {
+        Schema::create('task_comment_up_votes', function (Blueprint $table) {
             $table->id();
 
-            $prop = TaskCommentEntityModel::props(null, true);
-            $table->bigInteger($prop->task_id)->unsigned();
+            $prop = TaskCommentUpVoteEntityModel::props(null, true);
+            $table->bigInteger($prop->comment_id)->unsigned();
             $table->bigInteger($prop->user_id)->unsigned();
-            $table->bigInteger($prop->parent_id)->unsigned()->nullable();
-            $table->text($prop->message);
             $table->timestamp($prop->created_at)->useCurrent();
         });
     }
@@ -33,6 +31,6 @@ class CreateTaskComments extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('task_comments');
+        Schema::dropIfExists('');
     }
 }

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Modules\Task\Entities\TaskCategoryEntityModel;
 
 class CreateTaskCategories extends Migration
 {
@@ -16,13 +17,14 @@ class CreateTaskCategories extends Migration
         Schema::create('task_categories', function (Blueprint $table) {
             $table->id();
 
-            $table->bigInteger('project_id');
-            $table->string('name', 50);
-            $table->timestamp('created_at');
-            $table->bigInteger('created_by_user_id');
-            $table->char('color', 50);
-            $table->dateTime('start_date');
-            $table->dateTime('deadline');
+            $prop = TaskCategoryEntityModel::props(null, true);
+            $table->bigInteger($prop->project_id)->unsigned();
+            $table->string($prop->name, 50);
+            $table->char($prop->color, 50);
+            $table->dateTime($prop->start_date)->nullable();
+            $table->dateTime($prop->deadline)->nullable();
+            $table->timestamp($prop->created_at)->useCurrent();
+            $table->bigInteger($prop->created_by_user_id)->unsigned();
         });
     }
 

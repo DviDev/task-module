@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Modules\Task\Entities\TaskEntityModel;
 
 class CreateTasks extends Migration
 {
@@ -16,25 +17,26 @@ class CreateTasks extends Migration
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
 
-            $table->string('name', 150);
-            $table->mediumText('description');
-            $table->bigInteger('project_id');
-            $table->bigInteger('category_id');
-            $table->mediumText('solution');
-            $table->bigInteger('parent_id');
-            $table->bigInteger('to_user_id');
-            $table->integer('time_estimate');
-            $table->dateTime('start_date');
-            $table->date('deadline');
-            $table->char('priority', 6);
-            $table->enum('status', ['closed','open','finalized','abandoned','in_progress']);
-            $table->smallInteger('num_order');
-            $table->tinyInteger('percent_completed');
-            $table->date('repeat_end');
-            $table->enum('repeat_type', ['dayly','weekly','monthly','trimester','quarterly','semiannually','annually']);
-            $table->smallInteger('repeat_num');
-            $table->boolean('active');
-            $table->dateTime('created_at');
+            $prop = TaskEntityModel::props(null, true);
+            $table->string($prop->name, 150);
+            $table->mediumText($prop->description)->nullable();
+            $table->bigInteger($prop->project_id)->unsigned();
+            $table->bigInteger($prop->category_id)->unsigned()->nullable();
+            $table->mediumText($prop->solution)->nullable();
+            $table->bigInteger($prop->parent_id)->unsigned()->nullable();
+            $table->bigInteger($prop->to_user_id)->unsigned()->nullable();
+            $table->integer($prop->time_estimate)->unsigned()->nullable();
+            $table->dateTime($prop->start_date)->nullable();
+            $table->date($prop->deadline)->nullable();
+            $table->tinyInteger($prop->priority)->unsigned();
+            $table->enum($prop->status, ['closed','open','finalized','abandoned','in_progress']);
+            $table->smallInteger($prop->num_order)->unsigned()->nullable();
+            $table->tinyInteger($prop->percent_completed)->unsigned()->nullable();
+            $table->date($prop->repeat_end)->nullable();
+            $table->enum($prop->repeat_type, ['dayly','weekly','monthly','trimester','quarterly','semiannually','annually'])->nullable();
+            $table->smallInteger($prop->repeat_num)->unsigned()->nullable();
+            $table->boolean($prop->active)->unsigned()->nullable();
+            $table->timestamp($prop->created_at)->useCurrent();
         });
     }
 
