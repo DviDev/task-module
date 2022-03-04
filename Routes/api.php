@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +13,8 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/task', function (Request $request) {
-    return $request->user();
+//Route::middleware('auth:api')
+Route::prefix('/task')->group(function () {
+    Route::get('list', [\Modules\Task\Http\Controllers\TaskController::class, 'list'])->name('task_list');
+//    return $request->user();
 });
