@@ -17,16 +17,21 @@ graph TD;
     Task-->add;
     Task-->update;
     Task-->delete;
+    Task-->start;
     Task-->Comments;
     Comments-->AddComments[add];
     Comments-->RemoveComments[remove];
     Comments-->LikeComments[like];
     Comments-->ReplyComments[reply];
-    Task-->Post;
+    Task-->Relation;
+    Relation-->Post;
     Post-->AddPost[add];
     Post-->RemovePosts[remove];
-    Task-->Link;
+    Relation-->Link;
     Link-->AddLinks[add];
     Link-->RemoveLinks[remove];
+    Relation-->Work;
+    Work-->TaskAdd[add];
+    Work-->TaskRemove[remove];
     
 ```
