@@ -8,6 +8,10 @@ use Illuminate\Routing\Controller;
 
 class TaskController extends Controller
 {
+    public function list()
+    {
+        return [];
+    }
     /**
      * Display a listing of the resource.
      * @return Renderable
