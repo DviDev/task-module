@@ -3,7 +3,7 @@
 namespace Modules\Task\Repositories;
 
 use Modules\Base\Repository\BaseRepository;
-use Modules\Task\Entities\TaskCommentUpVoteEntityModel;
+use Modules\Task\Entities\TaskCommentUpVote\TaskCommentUpVoteEntityModel;
 use Modules\Task\Models\TaskCommentUpVoteModel;
 
 /**

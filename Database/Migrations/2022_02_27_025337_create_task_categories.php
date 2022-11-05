@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use Modules\Task\Entities\TaskCategoryEntityModel;
+use Modules\Task\Entities\TaskCategory\TaskCategoryEntityModel;
 
 class CreateTaskCategories extends Migration
 {
@@ -23,7 +23,7 @@ class CreateTaskCategories extends Migration
             $table->char($prop->color, 50);
             $table->dateTime($prop->start_date)->nullable();
             $table->dateTime($prop->deadline)->nullable();
-            $table->timestamp($prop->created_at)->useCurrent();
+            $table->timestamp($prop->created_at);
             $table->bigInteger($prop->created_by_user_id)->unsigned();
         });
     }

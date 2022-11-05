@@ -3,7 +3,7 @@
 namespace Modules\Task\Repositories;
 
 use Modules\Base\Repository\BaseRepository;
-use Modules\Task\Entities\TaskEntityModel;
+use Modules\Task\Entities\Task\TaskEntityModel;
 use Modules\Task\Models\TaskModel;
 
 /**

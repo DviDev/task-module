@@ -1,9 +1,9 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use Modules\Task\Entities\TaskCommentEntityModel;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+use Modules\Task\Entities\TaskComment\TaskCommentEntityModel;
 
 class CreateTaskComments extends Migration
 {
@@ -22,7 +22,7 @@ class CreateTaskComments extends Migration
             $table->bigInteger($prop->user_id)->unsigned();
             $table->bigInteger($prop->parent_id)->unsigned()->nullable();
             $table->text($prop->message);
-            $table->timestamp($prop->created_at)->useCurrent();
+            $table->timestamp($prop->created_at);
         });
     }
 
