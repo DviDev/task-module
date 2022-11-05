@@ -1,9 +1,9 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use Modules\Task\Entities\TaskTagEntityModel;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+use Modules\Task\Entities\TaskTag\TaskTagEntityModel;
 
 class CreateTaskTags extends Migration
 {

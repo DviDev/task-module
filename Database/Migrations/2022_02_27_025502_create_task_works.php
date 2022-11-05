@@ -1,9 +1,9 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use Modules\Task\Entities\TaskWorkEntityModel;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+use Modules\Task\Entities\TaskWork\TaskWorkEntityModel;
 
 class CreateTaskWorks extends Migration
 {
@@ -23,7 +23,7 @@ class CreateTaskWorks extends Migration
             $table->timestamp($prop->task_start)->useCurrent();
             $table->timestamp($prop->task_end)->nullable();
             $table->string($prop->description, 200)->nullable();
-            $table->timestamp($prop->created_at)->useCurrent();
+            $table->timestamp($prop->created_at);
         });
     }
 

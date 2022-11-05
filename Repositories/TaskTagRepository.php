@@ -3,7 +3,7 @@
 namespace Modules\Task\Repositories;
 
 use Modules\Base\Repository\BaseRepository;
-use Modules\Task\Entities\TaskTagEntityModel;
+use Modules\Task\Entities\TaskTag\TaskTagEntityModel;
 use Modules\Task\Models\TaskTagModel;
 
 /**

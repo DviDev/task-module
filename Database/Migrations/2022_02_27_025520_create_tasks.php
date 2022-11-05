@@ -1,9 +1,9 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use Modules\Task\Entities\TaskEntityModel;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+use Modules\Task\Entities\Task\TaskEntityModel;
 
 class CreateTasks extends Migration
 {
@@ -36,7 +36,7 @@ class CreateTasks extends Migration
             $table->enum($prop->repeat_type, ['dayly','weekly','monthly','trimester','quarterly','semiannually','annually'])->nullable();
             $table->smallInteger($prop->repeat_num)->unsigned()->nullable();
             $table->boolean($prop->active)->unsigned()->nullable();
-            $table->timestamp($prop->created_at)->useCurrent();
+            $table->timestamp($prop->created_at);
         });
     }
 

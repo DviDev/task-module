@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use Modules\Task\Entities\TaskBoardEntityModel;
+use Modules\Task\Entities\TaskBoard\TaskBoardEntityModel;
 
 class CreateTaskBoards extends Migration
 {

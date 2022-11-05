@@ -3,7 +3,7 @@
 namespace Modules\Task\Tests\Unit;
 
 use App\Models\User;
-use Modules\Project\Entities\ProjectEntityModel;
+use Modules\Project\Entities\Project\ProjectEntityModel;
 use Modules\Project\Models\ProjectModel;
 use Modules\Task\Entities\TaskEntityModel;
 use Tests\TestCase;
