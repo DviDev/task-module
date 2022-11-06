@@ -5,7 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Modules\Task\Entities\Task\TaskEntityModel;
 
-class CreateTasks extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -36,7 +36,8 @@ class CreateTasks extends Migration
             $table->enum($prop->repeat_type, ['dayly','weekly','monthly','trimester','quarterly','semiannually','annually'])->nullable();
             $table->smallInteger($prop->repeat_num)->unsigned()->nullable();
             $table->boolean($prop->active)->unsigned()->nullable();
-            $table->timestamp($prop->created_at);
+
+            $table->timestamps();
         });
     }
 
@@ -49,4 +50,4 @@ class CreateTasks extends Migration
     {
         Schema::dropIfExists('tasks');
     }
-}
+};

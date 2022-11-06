@@ -5,7 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Modules\Task\Entities\TaskComment\TaskCommentEntityModel;
 
-class CreateTaskComments extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -22,7 +22,8 @@ class CreateTaskComments extends Migration
             $table->bigInteger($prop->user_id)->unsigned();
             $table->bigInteger($prop->parent_id)->unsigned()->nullable();
             $table->text($prop->message);
-            $table->timestamp($prop->created_at);
+
+            $table->timestamps();
         });
     }
 
@@ -35,4 +36,4 @@ class CreateTaskComments extends Migration
     {
         Schema::dropIfExists('task_comments');
     }
-}
+};

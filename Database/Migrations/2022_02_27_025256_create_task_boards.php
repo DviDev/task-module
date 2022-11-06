@@ -5,7 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 use Modules\Task\Entities\TaskBoard\TaskBoardEntityModel;
 
-class CreateTaskBoards extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -33,4 +33,4 @@ class CreateTaskBoards extends Migration
     {
         Schema::dropIfExists('task_boards');
     }
-}
+};

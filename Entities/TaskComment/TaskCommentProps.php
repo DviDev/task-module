@@ -9,6 +9,7 @@ namespace Modules\Task\Entities\TaskComment;
  * @property $parent_id
  * @property $message
  * @property $created_at
+ * @property $updated_at
  */
 trait TaskCommentProps
 {

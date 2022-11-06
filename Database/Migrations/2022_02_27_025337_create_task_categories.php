@@ -5,7 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 use Modules\Task\Entities\TaskCategory\TaskCategoryEntityModel;
 
-class CreateTaskCategories extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -37,4 +37,4 @@ class CreateTaskCategories extends Migration
     {
         Schema::dropIfExists('task_categories');
     }
-}
+};

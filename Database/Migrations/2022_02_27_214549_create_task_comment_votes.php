@@ -5,7 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Modules\Task\Entities\TaskCommentUpVote\TaskCommentUpVoteEntityModel;
 
-class CreateTaskCommentVotes extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -22,7 +22,8 @@ class CreateTaskCommentVotes extends Migration
             $table->bigInteger($prop->user_id)->unsigned();
             $table->bigInteger($prop->up_vote)->unsigned();
             $table->bigInteger($prop->down_vote)->unsigned();
-            $table->timestamp($prop->created_at);
+
+            $table->timestamps();
         });
     }
 
@@ -35,4 +36,4 @@ class CreateTaskCommentVotes extends Migration
     {
         Schema::dropIfExists('task_comment_votes');
     }
-}
+};

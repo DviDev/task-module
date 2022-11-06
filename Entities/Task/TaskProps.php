@@ -23,6 +23,7 @@ namespace Modules\Task\Entities\Task;
  * @property $repeat_num
  * @property $active
  * @property $created_at
+ * @property $updated_at
  */
 trait TaskProps
 {

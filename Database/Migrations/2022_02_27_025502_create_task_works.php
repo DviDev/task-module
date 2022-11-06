@@ -5,7 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Modules\Task\Entities\TaskWork\TaskWorkEntityModel;
 
-class CreateTaskWorks extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -36,4 +36,4 @@ class CreateTaskWorks extends Migration
     {
         Schema::dropIfExists('task_works');
     }
-}
+};
