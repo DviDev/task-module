@@ -12,7 +12,7 @@ use Modules\Task\Entities\TaskBoard\TaskBoardProps;
  * @author Davi Menezes (davimenezes.dev@gmail.com)
  * @link https://github.com/DaviMenezes
  * @method TaskBoardEntityModel toEntity()
- * @method TaskBoardFactory factory()
+ * @method static TaskBoardFactory factory()
  */
 class TaskBoardModel extends BaseModel
 {

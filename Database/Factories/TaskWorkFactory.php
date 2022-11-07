@@ -27,7 +27,11 @@ class TaskWorkFactory extends Factory
     {
         $p = TaskWorkEntityModel::props(null, true);
         return [
-
+            $p->task_id => null,
+            $p->user_id => null,
+            $p->task_start => $this->faker->dateTimeBetween('-30 years', now()),
+            $p->task_end => now()->addDays(random_int(3, 20)),
+            $p->description => $this->faker->sentence(),
         ];
     }
 }

@@ -12,7 +12,7 @@ use Modules\Task\Entities\TaskBoardTaskHistory\TaskBoardTaskHistoryProps;
  * @author Davi Menezes (davimenezes.dev@gmail.com)
  * @link https://github.com/DaviMenezes
  * @method TaskBoardTaskHistoryEntityModel toEntity()
- * @method TaskBoardTaskHistoryFactory factory()
+ * @method static TaskBoardTaskHistoryFactory factory()
  */
 class TaskBoardTaskHistoryModel extends BaseModel
 {

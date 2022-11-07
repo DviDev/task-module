@@ -12,7 +12,7 @@ use Modules\Task\Entities\Task\TaskProps;
  * @author Davi Menezes (davimenezes.dev@gmail.com)
  * @link https://github.com/DaviMenezes
  * @method TaskEntityModel toEntity()
- * @method TaskFactory factory()
+ * @method static TaskFactory factory()
  */
 class TaskModel extends BaseModel
 {

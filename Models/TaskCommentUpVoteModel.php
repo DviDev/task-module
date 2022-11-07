@@ -12,7 +12,7 @@ use Modules\Task\Entities\TaskCommentUpVote\TaskCommentUpVoteProps;
  * @author Davi Menezes (davimenezes.dev@gmail.com)
  * @link https://github.com/DaviMenezes
  * @method TaskCommentUpVoteEntityModel toEntity()
- * @method TaskCommentUpVoteFactory factory()
+ * @method static TaskCommentUpVoteFactory factory()
  */
 class TaskCommentUpVoteModel extends BaseModel
 {

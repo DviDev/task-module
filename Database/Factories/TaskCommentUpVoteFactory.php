@@ -27,7 +27,10 @@ class TaskCommentUpVoteFactory extends Factory
     {
         $p = TaskCommentUpVoteEntityModel::props(null, true);
         return [
-
+            $p->comment_id => null,
+            $p->user_id => null,
+            $p->up_vote => null,
+            $p->down_vote => null,
         ];
     }
 }

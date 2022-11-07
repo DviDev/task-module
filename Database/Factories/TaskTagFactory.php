@@ -27,7 +27,8 @@ class TaskTagFactory extends Factory
     {
         $p = TaskTagEntityModel::props(null, true);
         return [
-
+            $p->task_id => null,
+            $p->tag => null,
         ];
     }
 }

@@ -12,7 +12,7 @@ use Modules\Task\Entities\TaskWork\TaskWorkProps;
  * @author Davi Menezes (davimenezes.dev@gmail.com)
  * @link https://github.com/DaviMenezes
  * @method TaskWorkEntityModel toEntity()
- * @method TaskWorkFactory factory()
+ * @method static TaskWorkFactory factory()
  */
 class TaskWorkModel extends BaseModel
 {

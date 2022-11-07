@@ -12,7 +12,7 @@ use Modules\Task\Entities\TaskCategory\TaskCategoryProps;
  * @author Davi Menezes (davimenezes.dev@gmail.com)
  * @link https://github.com/DaviMenezes
  * @method TaskCategoryEntityModel toEntity()
- * @method TaskCategoryFactory factory()
+ * @method static TaskCategoryFactory factory()
  */
 class TaskCategoryModel extends BaseModel
 {

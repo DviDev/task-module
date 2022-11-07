@@ -12,7 +12,7 @@ use Modules\Task\Entities\TaskTag\TaskTagProps;
  * @author Davi Menezes (davimenezes.dev@gmail.com)
  * @link https://github.com/DaviMenezes
  * @method TaskTagEntityModel toEntity()
- * @method TaskTagFactory factory()
+ * @method static TaskTagFactory factory()
  */
 class TaskTagModel extends BaseModel
 {

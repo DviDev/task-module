@@ -27,7 +27,10 @@ class TaskCommentFactory extends Factory
     {
         $p = TaskCommentEntityModel::props(null, true);
         return [
-
+            $p->task_id => null,
+            $p->user_id => null,
+            $p->parent_id => collect([null, TaskCommentModel::query()->inRandomOrder()->first()->id])->random(),
+            $p->message => $this->faker->sentence(),
         ];
     }
 }
