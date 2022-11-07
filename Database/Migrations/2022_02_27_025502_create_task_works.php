@@ -23,7 +23,7 @@ return new class extends Migration
             $table->timestamp($prop->task_start)->useCurrent();
             $table->timestamp($prop->task_end)->nullable();
             $table->string($prop->description, 200)->nullable();
-            $table->timestamp($prop->created_at);
+            $table->timestamp($prop->created_at)->useCurrent();
         });
     }
 
