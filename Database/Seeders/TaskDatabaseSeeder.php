@@ -2,8 +2,12 @@
 
 namespace Modules\Task\Database\Seeders;
 
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
+use Modules\Project\Models\ProjectModel;
+use Modules\Task\Entities\Task\TaskEntityModel;
+use Modules\Task\Models\TaskCategoryModel;
 
 class TaskDatabaseSeeder extends Seeder
 {
@@ -12,10 +16,15 @@ class TaskDatabaseSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(ProjectModel $project)
     {
         Model::unguard();
 
-        // $this->call("OthersTableSeeder");
+//        User::query()->each(function (User $user) use ($project) {
+//            TaskCategoryModel::factory()->count(3)
+//                ->for($project, 'project')
+//                ->for($user, 'user')
+//                ->create();
+//        });
     }
 }

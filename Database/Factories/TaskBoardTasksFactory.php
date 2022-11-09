@@ -27,7 +27,8 @@ class TaskBoardTasksFactory extends Factory
     {
         $p = TaskBoardTasksEntityModel::props(null, true);
         return [
-
+            $p->board_id => null,
+            $p->task_id => null,
         ];
     }
 }

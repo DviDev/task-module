@@ -24,7 +24,7 @@ return new class extends Migration
             $table->dateTime($prop->start_date)->nullable();
             $table->dateTime($prop->deadline)->nullable();
             $table->timestamp($prop->created_at);
-            $table->bigInteger($prop->created_by_user_id)->unsigned();
+            $table->bigInteger($prop->user_id)->unsigned();
         });
     }
 

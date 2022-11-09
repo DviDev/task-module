@@ -2,8 +2,11 @@
 
 namespace Modules\Task\Models;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Modules\Base\Models\BaseModel;
+use Modules\Project\Models\ProjectModel;
 use Modules\Task\Database\Factories\TaskFactory;
 use Modules\Task\Entities\Task\TaskEntityModel;
 use Modules\Task\Entities\Task\TaskProps;
@@ -11,6 +14,9 @@ use Modules\Task\Entities\Task\TaskProps;
 /**
  * @author Davi Menezes (davimenezes.dev@gmail.com)
  * @link https://github.com/DaviMenezes
+ * @property-read User $owner
+ * @property-read ProjectModel $project
+ * @property-read User $recipient
  * @method TaskEntityModel toEntity()
  * @method static TaskFactory factory()
  */
@@ -32,5 +38,20 @@ class TaskModel extends BaseModel
     public static function table($alias = null): string
     {
         return self::dbTable('tasks', $alias);
+    }
+
+    public function owner(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'owner_id');
+    }
+
+    public function project(): BelongsTo
+    {
+        return $this->belongsTo(ProjectModel::class, 'project_id');
+    }
+
+    public function recipient(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'recipient_user_id');
     }
 }

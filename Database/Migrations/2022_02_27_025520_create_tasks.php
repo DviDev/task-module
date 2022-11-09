@@ -22,15 +22,16 @@ return new class extends Migration
             $prop = TaskEntityModel::props(null, true);
             $table->string($prop->name, 150);
             $table->mediumText($prop->description)->nullable();
+            $table->bigInteger($prop->owner_id)->unsigned();
             $table->bigInteger($prop->project_id)->unsigned();
             $table->bigInteger($prop->category_id)->unsigned()->nullable();
             $table->mediumText($prop->solution)->nullable();
             $table->bigInteger($prop->parent_id)->unsigned()->nullable();
-            $table->bigInteger($prop->to_user_id)->unsigned()->nullable();
+            $table->bigInteger($prop->recipient_user_id)->unsigned()->nullable();
             $table->integer($prop->time_estimate)->unsigned()->nullable();
             $table->dateTime($prop->start_date)->nullable();
             $table->date($prop->deadline)->nullable();
-            $table->tinyInteger($prop->priority)->unsigned();
+            $table->char($prop->priority);
             $table->enum($prop->status, TaskStatusEnum::toArray());
             $table->smallInteger($prop->num_order)->unsigned()->nullable();
             $table->tinyInteger($prop->percent_completed)->unsigned()->nullable();

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->id();
 
             $prop = TaskBoardEntityModel::props(null, true);
-            $table->bigInteger($prop->project_id)->unsigned();
+            $table->bigInteger($prop->task_id)->unsigned();
             $table->string($prop->name, 70);
             $table->tinyInteger($prop->order)->unsigned();
         });

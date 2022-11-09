@@ -29,7 +29,7 @@ class TaskCommentFactory extends Factory
         return [
             $p->task_id => null,
             $p->user_id => null,
-            $p->parent_id => collect([null, TaskCommentModel::query()->inRandomOrder()->first()->id])->random(),
+            $p->parent_id => collect([null, TaskCommentModel::query()->inRandomOrder()->first()->id?? null])->random(),
             $p->message => $this->faker->sentence(),
         ];
     }

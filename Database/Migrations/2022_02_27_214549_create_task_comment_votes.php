@@ -20,8 +20,8 @@ return new class extends Migration
             $prop = TaskCommentUpVoteEntityModel::props(null, true);
             $table->bigInteger($prop->comment_id)->unsigned();
             $table->bigInteger($prop->user_id)->unsigned();
-            $table->bigInteger($prop->up_vote)->unsigned();
-            $table->bigInteger($prop->down_vote)->unsigned();
+            $table->bigInteger($prop->up_vote)->unsigned()->nullable();
+            $table->bigInteger($prop->down_vote)->unsigned()->nullable();
 
             $table->timestamps();
         });
