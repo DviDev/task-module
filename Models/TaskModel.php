@@ -10,12 +10,14 @@ use Modules\Project\Models\ProjectModel;
 use Modules\Task\Database\Factories\TaskFactory;
 use Modules\Task\Entities\Task\TaskEntityModel;
 use Modules\Task\Entities\Task\TaskProps;
+use Modules\Workspace\Models\WorkspaceModel;
 
 /**
  * @author Davi Menezes (davimenezes.dev@gmail.com)
  * @link https://github.com/DaviMenezes
  * @property-read User $owner
  * @property-read ProjectModel $project
+ * @property-read WorkspaceModel $workspace
  * @property-read User $recipient
  * @method TaskEntityModel toEntity()
  * @method static TaskFactory factory()
@@ -48,6 +50,11 @@ class TaskModel extends BaseModel
     public function project(): BelongsTo
     {
         return $this->belongsTo(ProjectModel::class, 'project_id');
+    }
+
+    public function workspace(): BelongsTo
+    {
+        return $this->belongsTo(WorkspaceModel::class, 'workspace_id');
     }
 
     public function recipient(): BelongsTo

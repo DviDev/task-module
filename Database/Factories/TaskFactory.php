@@ -33,6 +33,7 @@ class TaskFactory extends Factory
             $p->name => $this->faker->words(3, true),
             $p->description => $this->faker->sentence(),
             $p->owner_id => null,
+            $p->workspace_id => null,
             $p->project_id => null,
             $p->category_id => TaskCategoryModel::query()->inRandomOrder()->first()->id ?? null,
             $p->solution => $this->faker->sentence(),

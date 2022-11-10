@@ -7,6 +7,7 @@ namespace Modules\Task\Entities\Task;
  * @property $name
  * @property $description
  * @property $owner_id
+ * @property $workspace_id
  * @property $project_id
  * @property $category_id
  * @property $solution

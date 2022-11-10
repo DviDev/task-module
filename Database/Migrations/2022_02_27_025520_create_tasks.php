@@ -23,7 +23,8 @@ return new class extends Migration
             $table->string($prop->name, 150);
             $table->mediumText($prop->description)->nullable();
             $table->bigInteger($prop->owner_id)->unsigned();
-            $table->bigInteger($prop->project_id)->unsigned();
+            $table->bigInteger($prop->workspace_id)->unsigned();
+            $table->bigInteger($prop->project_id)->unsigned()->nullable();
             $table->bigInteger($prop->category_id)->unsigned()->nullable();
             $table->mediumText($prop->solution)->nullable();
             $table->bigInteger($prop->parent_id)->unsigned()->nullable();
