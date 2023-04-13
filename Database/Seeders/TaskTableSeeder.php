@@ -3,8 +3,8 @@
 namespace Modules\Task\Database\Seeders;
 
 use App\Models\User;
-use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Seeder;
 use Modules\Project\Models\ProjectModel;
 use Modules\Task\Entities\Task\TaskEntityModel;
 use Modules\Task\Entities\TaskBoard\TaskBoardEntityModel;
@@ -61,6 +61,8 @@ class TaskTableSeeder extends Seeder
                     };
 
                     $factory = TaskCommentUpVoteModel::factory()->for($comment, 'comment')->for($user, 'user');
+
+                    /**@var \Closure $choice*/
                     $choice = collect([$fnUpVote, $fnDownVote])->random();
                     $choice($factory);
                 });
