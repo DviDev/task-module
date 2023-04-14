@@ -21,65 +21,140 @@ use Modules\Workspace\Models\WorkspaceModel;
 
 class TaskTableSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return TaskModel
-     */
-    public function run(User $user, ProjectModel $project, WorkspaceModel $workspace)
+    public function run(User $user, ProjectModel $project, WorkspaceModel $workspace): void
     {
         Model::unguard();
-        TaskCategoryModel::factory()->count(config('app.MODULE_SEED_CATEGORY_COUNT'))
+
+        $this->createTaskCategories($project, $user);
+        $this->createTasks($user, $workspace, $project);
+    }
+
+    protected function createTaskCategories(ProjectModel $project, User $user): void
+    {
+        $seed_total = config('app.SEED_MODULE_CATEGORY_COUNT');
+        $seeded = 0;
+        TaskCategoryModel::factory()
+            ->count($seed_total)
             ->for($project, 'project')
             ->for($user, 'user')
+            ->afterCreating(function() use ($seed_total, &$seeded) {
+                $seeded++;
+                ds("task category $seeded / $seed_total");
+            })
             ->create();
+    }
+
+    protected function createTasks(User $user, WorkspaceModel $workspace, ProjectModel $project): void
+    {
         $categories = TaskCategoryModel::query()->get()->map(function (TaskCategoryModel $category) {
             $p = TaskEntityModel::props();
             return [$p->category_id => $category->id];
         })->toArray();
 
         $recipient = User::query()->where('id', '<>', $user->id)->first();
-        $tasks = TaskModel::factory()->count(config('app.MODULE_SEED_COUNT'))
+
+        $seed_total = config('app.SEED_MODULE_COUNT');
+        $seeded = 0;
+        TaskModel::factory()
+            ->count($seed_total)
             ->for($user, 'owner')
             ->for($workspace, 'workspace')
             ->for($project, 'project')->for($recipient, 'recipient')
             ->sequence(...$categories)
+            ->afterCreating(function (TaskModel $task) use ($user, $seed_total, &$seeded) {
+                $seeded++;
+                ds("task $seeded / $seed_total");
+
+                $this->createTaskTags($task);
+
+                $this->createTaskComments($task, $user);
+
+                $this->createTaskWorks($task, $user);
+
+                $this->createTaskBoards($task);
+            })
             ->create();
+    }
 
-        $tasks->each(function (TaskModel $task) use ($user) {
+    function createTaskTags(TaskModel $task): void
+    {
+        $seed_total = config('app.SEED_MODULE_CATEGORY_COUNT');
+        $seeded = 0;
+        TaskTagModel::factory()
+            ->count($seed_total)
+            ->for($task, 'task')
+            ->afterCreating(function(TaskTagModel $tag) use ($seed_total, &$seeded){
+                $seeded++;
+                ds("task $tag->task_id tag $seeded / $seed_total");
+            })
+            ->create();
+    }
 
-            TaskTagModel::factory()->count(config('app.MODULE_SEED_CATEGORY_COUNT'))->for($task, 'task')->create();
-            TaskCommentModel::factory()->count(config('app.MODULE_SEED_COUNT'))
-                ->for($task, 'task')->for($user, 'user')
-                ->create()->each(function (TaskCommentModel $comment) use ($user) {
-                    $p = TaskCommentUpVoteEntityModel::props();
-                    $fnUpVote = function ($factory) use ($p, $comment, $user) {
-                        $factory->create([$p->up_vote => 1]);
-                    };
-                    $fnDownVote = function ($factory) use ($p, $comment, $user) {
-                        $factory->create([$p->down_vote => 1]);
-                    };
+    function createTaskComments(TaskModel $task, User $user): void
+    {
+        $seed_total = config('app.SEED_MODULE_COUNT');
+        $seeded = 0;
+        TaskCommentModel::factory()
+            ->count($seed_total)
+            ->for($task, 'task')->for($user, 'user')
+            ->afterCreating(function (TaskCommentModel $comment) use ($user, $seed_total, &$seeded) {
+                $seeded++;
+                ds("task $comment->task_id comment $seeded / $seed_total");
 
-                    $factory = TaskCommentUpVoteModel::factory()->for($comment, 'comment')->for($user, 'user');
+                $this->createCommentVotes($comment, $user);
+            })
+            ->create();
+    }
 
-                    /**@var \Closure $choice*/
-                    $choice = collect([$fnUpVote, $fnDownVote])->random();
-                    $choice($factory);
-                });
+    function createTaskWorks(TaskModel $task, User $user): void
+    {
+        TaskWorkModel::factory()->count(config('app.SEED_MODULE_COUNT'))->for($task, 'task')->for($user, 'user')->create();
+    }
 
-            TaskWorkModel::factory()->count(config('app.MODULE_SEED_COUNT'))->for($task, 'task')->for($user, 'user')->create();
+    function createTaskBoards(TaskModel $task): void
+    {
+        $board = TaskBoardEntityModel::props();
+        TaskBoardModel::factory()->count(5)->for($task, 'task')->sequence(
+            [$board->name => 'Backlog'],
+            [$board->name => 'To do'],
+            [$board->name => 'Working'],
+            [$board->name => 'Test'],
+            [$board->name => 'Done'],
+        )
+            ->afterCreating(function (TaskBoardModel $board) use ($task) {
+                $this->createTaskBoard($board, $task);
+            })->create();
+    }
 
-            $board = TaskBoardEntityModel::props();
-            TaskBoardModel::factory()->count(5)->for($task, 'task')->sequence(
-                [$board->name => 'Backlog'],
-                [$board->name => 'To do'],
-                [$board->name => 'Working'],
-                [$board->name => 'Test'],
-                [$board->name => 'Done'],
-            )->create()->each(function (TaskBoardModel $board) use ($task) {
-                TaskBoardTasksModel::factory()->for($board, 'board')->for($task, 'task')->create();
-            });
+    function createTaskBoard(TaskBoardModel $board, TaskModel $task): void
+    {
+        TaskBoardTasksModel::factory()->count(config('app.SEED_TASK_COUNT'))
+            ->for($board, 'board')->for($task, 'task')
+            ->create();
+    }
+
+    function createCommentVotes(TaskCommentModel $comment): void
+    {
+        $participants = $comment->task->project->participants();
+        $seed_total = $participants->count();
+        $seeded = 0;
+        $participants->each(function(User $user) use ($comment, $seed_total, &$seeded) {
+            $p = TaskCommentUpVoteEntityModel::props();
+            $fnUpVote = function ($factory) use ($p, $comment, $user) {
+                $factory->create([$p->up_vote => 1]);
+            };
+            $fnDownVote = function ($factory) use ($p, $comment, $user) {
+                $factory->create([$p->down_vote => 1]);
+            };
+
+            $factory = TaskCommentUpVoteModel::factory()->for($comment, 'comment')->for($user, 'user');
+
+            /**@var \Closure $choice */
+            $choice = collect([$fnUpVote, $fnDownVote])->random();
+            $choice($factory);
+
+            $seeded++;
+            ds("task $comment->task_id comment $comment->id project participant vote $seeded / $seed_total");
         });
-        return $tasks;
     }
 }
