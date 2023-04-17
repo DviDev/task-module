@@ -5,6 +5,7 @@ namespace Modules\Task\Models;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Modules\Base\Models\BaseModel;
 use Modules\Project\Models\ProjectModel;
 use Modules\Task\Database\Factories\TaskFactory;
@@ -60,5 +61,20 @@ class TaskModel extends BaseModel
     public function recipient(): BelongsTo
     {
         return $this->belongsTo(User::class, 'recipient_user_id');
+    }
+
+    public function histories(): HasMany
+    {
+        return $this->hasMany(TaskBoardTaskHistoryModel::class);
+    }
+
+    public function categories(): HasMany
+    {
+        return $this->hasMany(TaskCategoryModel::class, 'task_id');
+    }
+
+    public function tags(): HasMany
+    {
+        return $this->hasMany(TaskTagModel::class, 'task_id');
     }
 }

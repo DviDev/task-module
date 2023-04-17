@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use Modules\Task\Entities\TaskBoard\TaskBoardEntityModel;
+use Modules\Task\Entities\TaskHistoryType\TaskHistoryTypeEntityModel;
 
 return new class extends Migration
 {
@@ -14,13 +14,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('task_boards', function (Blueprint $table) {
+        Schema::create('task_history_types', function (Blueprint $table) {
+            $p = TaskHistoryTypeEntityModel::props(null, true);
             $table->id();
-
-            $prop = TaskBoardEntityModel::props(null, true);
-            $table->bigInteger($prop->workspace_id)->unsigned();
-            $table->string($prop->name, 70);
-            $table->tinyInteger($prop->order)->unsigned();
+            $table->string($p->name);
         });
     }
 
@@ -31,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('task_boards');
+        Schema::dropIfExists('task_history_types');
     }
 };

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->id();
 
             $prop = TaskCategoryEntityModel::props(null, true);
-            $table->bigInteger($prop->project_id)->unsigned();
+            $table->bigInteger($prop->task_id)->unsigned();
             $table->string($prop->name, 50);
             $table->char($prop->color, 50);
             $table->dateTime($prop->start_date)->nullable();

@@ -41,7 +41,7 @@ class TaskCategoryModel extends BaseModel
 
     public function project(): BelongsTo
     {
-        return $this->belongsTo(ProjectModel::class, 'project_id');
+        return $this->belongsTo(ProjectModel::class, 'task_id');
     }
 
     public function user(): BelongsTo

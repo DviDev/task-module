@@ -14,11 +14,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('task_board_task_histories', function (Blueprint $table) {
+        Schema::create('task_histories', function (Blueprint $table) {
             $table->id();
 
             $prop = TaskBoardTaskHistoryEntityModel::props(null, true);
-            $table->bigInteger($prop->board_task_to_item_id)->unsigned();
+            $table->bigInteger($prop->task_id)->unsigned();
             $table->dateTime($prop->updated_at);
             $table->bigInteger($prop->updated_by_user_id)->unsigned();
         });
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('task_board_task_histories');
+        Schema::dropIfExists('task_histories');
     }
 };

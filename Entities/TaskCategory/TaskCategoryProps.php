@@ -4,7 +4,7 @@ namespace Modules\Task\Entities\TaskCategory;
 
 /**
  * @property $id
- * @property $project_id
+ * @property $task_id
  * @property $user_id
  * @property $name
  * @property $color

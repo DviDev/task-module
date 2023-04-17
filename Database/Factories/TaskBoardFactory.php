@@ -27,7 +27,7 @@ class TaskBoardFactory extends Factory
     {
         $p = TaskBoardEntityModel::props(null, true);
         return [
-            $p->task_id => null,
+            $p->workspace_id => null,
             $p->name => $this->faker->words(3, true),
             $p->order => random_int(1, 5),
         ];

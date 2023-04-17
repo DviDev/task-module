@@ -27,7 +27,7 @@ class TaskCategoryFactory extends Factory
     {
         $p = TaskCategoryEntityModel::props(null, true);
         return [
-            $p->project_id => null,
+            $p->task_id => null,
             $p->name => $this->faker->word(),
             $p->color => $this->faker->word(),
             $p->start_date => $this->faker->dateTimeBetween(),

@@ -5,6 +5,7 @@ namespace Modules\Task\Models;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Modules\Base\Models\BaseModel;
 use Modules\Task\Database\Factories\TaskCommentFactory;
 use Modules\Task\Entities\TaskComment\TaskCommentEntityModel;
@@ -46,5 +47,15 @@ class TaskCommentModel extends BaseModel
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function comments(): HasMany
+    {
+        return $this->hasMany(TaskCommentModel::class, 'task_id');
+    }
+
+    public function votes(): HasMany
+    {
+        return $this->hasMany(TaskCommentUpVoteModel::class, 'comment_id');
     }
 }

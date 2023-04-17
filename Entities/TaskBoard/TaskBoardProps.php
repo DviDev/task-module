@@ -4,7 +4,7 @@ namespace Modules\Task\Entities\TaskBoard;
 
 /**
  * @property $id
- * @property $task_id
+ * @property $workspace_id
  * @property $name
  * @property $order
 */

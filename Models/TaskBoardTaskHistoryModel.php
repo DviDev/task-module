@@ -31,6 +31,6 @@ class TaskBoardTaskHistoryModel extends BaseModel
 
     public static function table($alias = null): string
     {
-        return self::dbTable('task_board_task_histories', $alias);
+        return self::dbTable('task_histories', $alias);
     }
 }

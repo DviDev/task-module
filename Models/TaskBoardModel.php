@@ -4,10 +4,12 @@ namespace Modules\Task\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Modules\Base\Models\BaseModel;
 use Modules\Task\Database\Factories\TaskBoardFactory;
 use Modules\Task\Entities\TaskBoard\TaskBoardEntityModel;
 use Modules\Task\Entities\TaskBoard\TaskBoardProps;
+use Modules\Workspace\Models\WorkspaceModel;
 
 /**
  * @author Davi Menezes (davimenezes.dev@gmail.com)
@@ -36,8 +38,13 @@ class TaskBoardModel extends BaseModel
         return self::dbTable('task_boards', $alias);
     }
 
-    public function task(): BelongsTo
+    public function workspace(): BelongsTo
     {
-        return $this->belongsTo(TaskModel::class, 'task_id');
+        return $this->belongsTo(WorkspaceModel::class, 'workspace_id');
+    }
+
+    public function tasks(): BelongsToMany
+    {
+        return $this->belongsToMany(TaskModel::class, TaskBoardTasksModel::class, 'task_id', 'board_id');
     }
 }
