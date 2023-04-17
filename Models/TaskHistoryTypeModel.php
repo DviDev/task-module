@@ -34,7 +34,7 @@ class TaskHistoryTypeModel extends BaseModel
         return self::dbTable('task_history_types', $alias);
     }
 
-    public function getGuarded()
+    public function getGuarded(): array
     {
         $p = TaskHistoryTypeEntityModel::props();
         return collect($p->toArray())->except([
