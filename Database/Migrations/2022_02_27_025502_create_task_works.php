@@ -18,8 +18,12 @@ return new class extends Migration
             $table->id();
 
             $prop = TaskWorkEntityModel::props(null, true);
-            $table->bigInteger($prop->task_id)->unsigned();
-            $table->bigInteger($prop->user_id)->unsigned();
+            $table->foreignId($prop->task_id)
+                ->references('id')->on('tasks')
+                ->cascadeOnUpdate()->restrictOnDelete();
+            $table->foreignId($prop->user_id)
+                ->references('id')->on('users')
+                ->cascadeOnUpdate()->restrictOnDelete();
             $table->timestamp($prop->task_start)->useCurrent();
             $table->timestamp($prop->task_end)->nullable();
             $table->string($prop->description, 200)->nullable();

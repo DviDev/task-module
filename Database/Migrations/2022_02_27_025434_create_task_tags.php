@@ -18,7 +18,9 @@ return new class extends Migration
             $table->id();
 
             $prop = TaskTagEntityModel::props(null, true);
-            $table->bigInteger($prop->task_id)->unsigned();
+            $table->foreignId($prop->task_id)
+                ->references('id')->on('tasks')
+                ->cascadeOnUpdate()->restrictOnDelete();
             $table->string($prop->tag, 50);
         });
     }

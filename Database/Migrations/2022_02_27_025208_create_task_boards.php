@@ -18,7 +18,9 @@ return new class extends Migration
             $table->id();
 
             $prop = TaskBoardEntityModel::props(null, true);
-            $table->bigInteger($prop->workspace_id)->unsigned();
+            $table->foreignId($prop->workspace_id)
+                ->references('id')->on('workspaces')
+                ->cascadeOnUpdate()->restrictOnDelete();
             $table->string($prop->name, 70);
             $table->tinyInteger($prop->order)->unsigned();
         });

@@ -18,10 +18,14 @@ return new class extends Migration
             $table->id();
 
             $prop = TaskCommentUpVoteEntityModel::props(null, true);
-            $table->bigInteger($prop->comment_id)->unsigned();
-            $table->bigInteger($prop->user_id)->unsigned();
-            $table->bigInteger($prop->up_vote)->unsigned()->nullable();
-            $table->bigInteger($prop->down_vote)->unsigned()->nullable();
+            $table->foreignId($prop->comment_id)
+                ->references('id')->on('task_comments')
+                ->cascadeOnUpdate()->restrictOnDelete();
+            $table->foreignId($prop->user_id)
+                ->references('id')->on('users')
+                ->cascadeOnUpdate()->restrictOnDelete();
+            $table->boolean($prop->up_vote)->unsigned()->nullable();
+            $table->boolean($prop->down_vote)->unsigned()->nullable();
 
             $table->timestamps();
         });

@@ -18,9 +18,13 @@ return new class extends Migration
             $table->id();
 
             $prop = TaskBoardTaskHistoryEntityModel::props(null, true);
-            $table->bigInteger($prop->task_id)->unsigned();
+            $table->foreignId($prop->task_id)
+                ->references('id')->on('tasks')
+                ->cascadeOnUpdate()->restrictOnDelete();
             $table->dateTime($prop->updated_at);
-            $table->bigInteger($prop->updated_by_user_id)->unsigned();
+            $table->foreignId($prop->updated_by_user_id)
+                ->references('id')->on('users')
+                ->cascadeOnUpdate()->restrictOnDelete();
         });
     }
 

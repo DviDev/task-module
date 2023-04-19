@@ -18,9 +18,16 @@ return new class extends Migration
             $table->id();
 
             $prop = TaskCommentEntityModel::props(null, true);
-            $table->bigInteger($prop->task_id)->unsigned();
-            $table->bigInteger($prop->user_id)->unsigned();
-            $table->bigInteger($prop->parent_id)->unsigned()->nullable();
+            $table->foreignId($prop->task_id)
+                ->references('id')->on('tasks')
+                ->cascadeOnUpdate()->restrictOnDelete();
+            $table->foreignId($prop->user_id)
+                ->references('id')->on('users')
+                ->cascadeOnUpdate()->restrictOnDelete();
+            $table->foreignId($prop->parent_id)
+                ->nullable()
+                ->references('id')->on('task_comments')
+                ->cascadeOnUpdate()->restrictOnDelete();
             $table->text($prop->message);
 
             $table->timestamps();

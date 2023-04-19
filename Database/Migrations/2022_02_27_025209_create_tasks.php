@@ -22,13 +22,29 @@ return new class extends Migration
             $prop = TaskEntityModel::props(null, true);
             $table->string($prop->name, 150);
             $table->mediumText($prop->description)->nullable();
-            $table->bigInteger($prop->owner_id)->unsigned();
-            $table->bigInteger($prop->workspace_id)->unsigned();
-            $table->bigInteger($prop->project_id)->unsigned()->nullable();
-            $table->bigInteger($prop->category_id)->unsigned()->nullable();
+            $table->foreignId($prop->owner_id)
+                ->references('id')->on('users')
+                ->cascadeOnUpdate()->restrictOnDelete();
+            $table->foreignId($prop->workspace_id)
+                ->references('id')->on('workspaces')
+                ->cascadeOnUpdate()->restrictOnDelete();
+            $table->foreignId($prop->project_id)
+                ->nullable()
+                ->references('id')->on('projects')
+                ->cascadeOnUpdate()->restrictOnDelete();
+            $table->foreignId($prop->category_id)
+                ->nullable()
+                ->references('id')->on('task_categories')
+                ->cascadeOnUpdate()->nullOnDelete();
             $table->mediumText($prop->solution)->nullable();
-            $table->bigInteger($prop->parent_id)->unsigned()->nullable();
-            $table->bigInteger($prop->recipient_user_id)->unsigned()->nullable();
+            $table->foreignId($prop->parent_id)
+                ->nullable()
+                ->references('id')->on('tasks')
+                ->cascadeOnUpdate()->nullOnDelete();
+            $table->foreignId($prop->recipient_user_id)
+                ->nullable()
+                ->references('id')->on('users')
+                ->cascadeOnUpdate()->nullOnDelete();
             $table->integer($prop->time_estimate)->unsigned()->nullable();
             $table->dateTime($prop->start_date)->nullable();
             $table->date($prop->deadline)->nullable();
