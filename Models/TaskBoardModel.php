@@ -45,6 +45,6 @@ class TaskBoardModel extends BaseModel
 
     public function tasks(): BelongsToMany
     {
-        return $this->belongsToMany(TaskModel::class, TaskBoardTasksModel::class, 'task_id', 'board_id');
+        return $this->belongsToMany(TaskModel::class, TaskBoardTasksModel::class, 'board_id', 'task_id');
     }
 }
