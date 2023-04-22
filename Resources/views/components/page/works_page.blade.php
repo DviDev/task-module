@@ -1,6 +1,3 @@
-<div>
-    <!-- 
-  <options=bold>“ Simplicity is the essence of happiness. ”</>
-  <fg=gray>— Cedric Bledsoe</>
- -->
-</div>
+<x-app-layout>
+    <livewire:task.task-work-table :task="$task"/>
+</x-app-layout>

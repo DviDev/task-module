@@ -1,6 +1,3 @@
-<div>
-    <!-- 
-  <options=bold>“ Let all your things have their places; let each part of your business have its time. ”</>
-  <fg=gray>— Benjamin Franklin</>
- -->
-</div>
+<x-app-layout>
+    <livewire:task.task-tag-table :task="$task"/>
+</x-app-layout>

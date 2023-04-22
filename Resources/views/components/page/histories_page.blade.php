@@ -1,6 +1,3 @@
-<div>
-    <!-- 
-  <options=bold>“ Simplicity is the consequence of refined emotions. ”</>
-  <fg=gray>— Jean D'Alembert</>
- -->
-</div>
+<x-app-layout>
+    <livewire:task.task-history-table :task="$task"/>
+</x-app-layout>

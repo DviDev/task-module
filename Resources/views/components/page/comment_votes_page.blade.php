@@ -1,6 +1,3 @@
-<div>
-    <!-- 
-  <options=bold>“ Well begun is half done. ”</>
-  <fg=gray>— Aristotle</>
- -->
-</div>
+<x-app-layout>
+    <livewire:task.task-comment-vote-table :comment="$comment"/>
+</x-app-layout>

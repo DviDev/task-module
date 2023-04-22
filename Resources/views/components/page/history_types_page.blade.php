@@ -1,6 +1,3 @@
-<div>
-    <!-- 
-  <options=bold>“ Be present above all else. ”</>
-  <fg=gray>— Naval Ravikant</>
- -->
-</div>
+<x-app-layout>
+    <livewire:task.task-history-type-table/>
+</x-app-layout>

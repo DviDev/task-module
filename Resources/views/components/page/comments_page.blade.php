@@ -1,6 +1,3 @@
-<div>
-    <!-- 
-  <options=bold>“ Waste no more time arguing what a good man should be, be one. ”</>
-  <fg=gray>— Marcus Aurelius</>
- -->
-</div>
+<x-app-layout>
+    <livewire:task.task-comment-table :task="$task"/>
+</x-app-layout>

@@ -31,8 +31,8 @@ Route::prefix('task')->group(function () {
     Route::get('/{task}/histories', fn(TaskModel $task) =>
         view('task::components.page.histories_page', compact('task')))
         ->name('admin.task.histories');
-    Route::get('/history/{history}/types', fn(TaskBoardTaskHistoryModel $history) =>
-        view('task::components.page.history_types_page', compact('history')))
+    Route::get('/history/types', fn() =>
+        view('task::components.page.history_types_page'))
         ->name('admin.task.history.types');
     Route::get('/{task}/categories', fn(TaskModel $task) =>
         view('task::components.page.categories_page', compact('task')))

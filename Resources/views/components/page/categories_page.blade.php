@@ -1,6 +1,3 @@
-<div>
-    <!-- 
-  <options=bold>“ The whole future lies in uncertainty: live immediately. ”</>
-  <fg=gray>— Seneca</>
- -->
-</div>
+<x-app-layout>
+    <livewire:task.task-category-table :task="$task"/>
+</x-app-layout>
