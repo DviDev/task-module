@@ -1,7 +1,7 @@
 <div class="dark:text-gray-200 text-gray-800 px-4 space-y-1">
-    <div class="space-x-1">
-        <x-button href="{{route('admin.task.board.tasks', $row->id)}}"  label="tasks" teal/>
-    </div>
+    <x-dvui::button.group class="text-sm border dark:border-gray-500 dark:text-gray-400 divide-x divide-gray-500">
+        <x-dvui::link x-text="tasks" url="{{route('admin.task.board.tasks', $row->id)}}" teal class="rounded px-2 py-1"/>
+    </x-dvui::button.group>
     @if(isset($row->description))
         <div>Descrição: {{$row->description}}</div>
     @endif
