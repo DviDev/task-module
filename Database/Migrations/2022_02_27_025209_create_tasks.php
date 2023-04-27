@@ -55,7 +55,7 @@ return new class extends Migration
             $table->date($prop->repeat_end)->nullable();
             $table->enum($prop->repeat_type, TaskRepeatTypeEnum::toArray())->nullable();
             $table->smallInteger($prop->repeat_num)->unsigned()->nullable();
-            $table->boolean($prop->active)->unsigned()->nullable();
+            $table->char($prop->active, 1)->nullable();
 
             $table->timestamps();
         });
