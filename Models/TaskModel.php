@@ -28,6 +28,16 @@ class TaskModel extends BaseModel
     use HasFactory;
     use TaskProps;
 
+    protected $casts = ['active' => 'boolean'];
+
+    public function getActiveAttribute()
+    {
+        if (!$this->attributes['active']) {
+            return null;
+        }
+        return true;
+    }
+
     public function modelEntity(): string
     {
         return TaskEntityModel::class;
@@ -76,5 +86,13 @@ class TaskModel extends BaseModel
     public function tags(): HasMany
     {
         return $this->hasMany(TaskTagModel::class, 'task_id');
+    }
+
+    public function save(array $options = []): bool
+    {
+        if (!$this->active || $this->active == 0) {
+            $this->active = null;
+        }
+        return parent::save($options);
     }
 }
