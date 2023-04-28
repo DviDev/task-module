@@ -28,7 +28,10 @@ class TaskModel extends BaseModel
     use HasFactory;
     use TaskProps;
 
-    protected $casts = ['active' => 'boolean'];
+    protected $casts = [
+        'active' => 'boolean',
+        'start_date' => 'datetime'
+    ];
 
     public function getActiveAttribute()
     {
