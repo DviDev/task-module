@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 use Modules\Task\Entities\TaskCategory\TaskCategoryEntityModel;
 
 return new class extends Migration
@@ -23,7 +23,7 @@ return new class extends Migration
             $table->char($prop->color, 50);
             $table->dateTime($prop->start_date)->nullable();
             $table->dateTime($prop->deadline)->nullable();
-            $table->timestamp($prop->created_at);
+            $table->timestamp($prop->created_at)->useCurrent();
             $table->bigInteger($prop->user_id)->unsigned();
         });
     }

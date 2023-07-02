@@ -10,6 +10,8 @@ namespace Modules\Task\Entities\TaskWork;
  * @property $task_end
  * @property $description
  * @property $created_at
+ * @property $updated_at
+ * @property $deleted_at
  */
 trait TaskWorkProps
 {

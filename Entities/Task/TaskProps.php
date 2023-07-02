@@ -26,6 +26,7 @@ namespace Modules\Task\Entities\Task;
  * @property $active
  * @property $created_at
  * @property $updated_at
+ * @property $deleted_at
  */
 trait TaskProps
 {

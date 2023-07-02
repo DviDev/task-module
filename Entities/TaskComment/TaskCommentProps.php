@@ -10,6 +10,7 @@ namespace Modules\Task\Entities\TaskComment;
  * @property $message
  * @property $created_at
  * @property $updated_at
+ * @property $deleted_at
  */
 trait TaskCommentProps
 {

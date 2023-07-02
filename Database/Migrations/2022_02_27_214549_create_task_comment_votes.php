@@ -17,17 +17,20 @@ return new class extends Migration
         Schema::create('task_comment_votes', function (Blueprint $table) {
             $table->id();
 
-            $prop = TaskCommentUpVoteEntityModel::props(null, true);
-            $table->foreignId($prop->comment_id)
+            $p = TaskCommentUpVoteEntityModel::props(null, true);
+            $table->foreignId($p->comment_id)
                 ->references('id')->on('task_comments')
                 ->cascadeOnUpdate()->restrictOnDelete();
-            $table->foreignId($prop->user_id)
+            $table->foreignId($p->user_id)
                 ->references('id')->on('users')
                 ->cascadeOnUpdate()->restrictOnDelete();
-            $table->boolean($prop->up_vote)->unsigned()->nullable();
-            $table->boolean($prop->down_vote)->unsigned()->nullable();
+            $table->boolean($p->up_vote)->unsigned()->nullable();
+            $table->boolean($p->down_vote)->unsigned()->nullable();
 
-            $table->timestamps();
+            $table->timestamp($p->created_at)->useCurrent();
+            $table->timestamp($p->updated_at)->useCurrent()->useCurrentOnUpdate();
+            $table->timestamp($p->deleted_at)->nullable();
+
         });
     }
 

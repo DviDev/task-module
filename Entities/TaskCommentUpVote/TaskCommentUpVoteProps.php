@@ -10,6 +10,7 @@ namespace Modules\Task\Entities\TaskCommentUpVote;
  * @property $down_vote
  * @property $created_at
  * @property $updated_at
+ * @property $deleted_at
  */
 trait TaskCommentUpVoteProps
 {
