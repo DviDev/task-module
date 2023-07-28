@@ -17,7 +17,7 @@ use Modules\Task\Entities\TaskComment\TaskCommentProps;
  * @property-read TaskModel $task
  * @property-read User $user
  * @method TaskCommentEntityModel toEntity()
- * @method static TaskCommentFactory factory()
+ * @method static TaskCommentFactory factory($count = null, $state = [])
  */
 class TaskCommentModel extends BaseModel
 {

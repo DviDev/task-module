@@ -1,5 +1,15 @@
 <?php
 
 return [
-    'name' => 'Task'
+    'name' => 'Task',
+    'SEED_TASK_BOARD_TASKS_COUNT' => 3,
+    'SEED_TASK_BOARDS_COUNT' => 3,
+    'SEED_TASK_CATEGORIES_COUNT' => 3,
+    'SEED_TASK_COMMENT_VOTES_COUNT' => 3,
+    'SEED_TASK_COMMENTS_COUNT' => 3,
+    'SEED_TASK_HISTORIES_COUNT' => 3,
+    'SEED_TASK_HISTORY_TYPES_COUNT' => 3,
+    'SEED_TASK_TAGS_COUNT' => 3,
+    'SEED_TASK_WORKS_COUNT' => 3,
+    'SEED_TASKS_COUNT' => 3,
 ];

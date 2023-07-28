@@ -31,16 +31,9 @@ class TaskTableSeeder extends Seeder
 
     protected function createTaskCategories(ProjectModel $project, User $user): void
     {
-        $seed_total = config('app.SEED_MODULE_CATEGORY_COUNT');
-        $seeded = 0;
-        TaskCategoryModel::factory()
-            ->count($seed_total)
+        TaskCategoryModel::factory(config('app.SEED_MODULE_CATEGORY_COUNT', 3))
             ->for($project, 'project')
             ->for($user, 'user')
-            ->afterCreating(function (TaskCategoryModel $category) use ($seed_total, &$seeded) {
-                $seeded++;
-                ds("project {$category->task_id} task category $seeded / $seed_total");
-            })
             ->create();
     }
 
@@ -53,18 +46,14 @@ class TaskTableSeeder extends Seeder
 
         $recipient = User::query()->where('id', '<>', $user->id)->first();
 
-        $seed_total = config('app.SEED_MODULE_COUNT');
+        $seed_total = config('app.SEED_MODULE_COUNT', 3);
         $seeded = 0;
-        TaskModel::factory()
-            ->count($seed_total)
+        TaskModel::factory($seed_total)
             ->for($user, 'owner')
             ->for($workspace, 'workspace')
             ->for($project, 'project')->for($recipient, 'recipient')
             ->sequence(...$categories)
             ->afterCreating(function (TaskModel $task) use ($user, $seed_total, &$seeded) {
-                $seeded++;
-                ds("task $seeded / $seed_total");
-
                 $this->createTaskTags($task);
 
                 $this->createTaskComments($task, $user);
@@ -78,40 +67,26 @@ class TaskTableSeeder extends Seeder
 
     function createTaskTags(TaskModel $task): void
     {
-        $seed_total = config('app.SEED_MODULE_CATEGORY_COUNT');
-        $seeded = 0;
-        TaskTagModel::factory()
-            ->count($seed_total)
+        $seed_total = config('app.SEED_MODULE_CATEGORY_COUNT', 3);
+        TaskTagModel::factory($seed_total)
             ->for($task, 'task')
-            ->afterCreating(function (TaskTagModel $tag) use ($seed_total, &$seeded) {
-                $seeded++;
-                ds("project {$tag->task->project_id} task $tag->task_id tag $seeded / $seed_total");
-            })
             ->create();
     }
 
     function createTaskComments(TaskModel $task, User $user): void
     {
-        $seed_total = config('app.SEED_MODULE_COUNT');
-        $seeded = 0;
-        TaskCommentModel::factory()
-            ->count($seed_total)
+        $seed_total = config('app.SEED_MODULE_COUNT', 3);
+        TaskCommentModel::factory($seed_total)
             ->for($task, 'task')->for($user, 'user')
             ->afterCreating(function (TaskCommentModel $comment) use ($user, $seed_total, &$seeded) {
-                $seeded++;
-                ds("project {$comment->task->project_id} task $comment->task_id comment $seeded / $seed_total");
-
-                $this->createCommentVotes($comment, $user);
+                $this->createCommentVotes($comment);
             })
             ->create();
     }
 
     function createCommentVotes(TaskCommentModel $comment): void
     {
-        $participants = $comment->task->project->participants();
-        $seed_total = $participants->count();
-        $seeded = 0;
-        $participants->each(function (User $user) use ($comment, $seed_total, &$seeded) {
+        $comment->task->project->participants()->each(function (User $user) use ($comment) {
             $p = TaskCommentUpVoteEntityModel::props();
             $fnUpVote = function ($factory) use ($p, $comment, $user) {
                 $factory->create([$p->up_vote => 1]);
@@ -125,9 +100,6 @@ class TaskTableSeeder extends Seeder
             /**@var \Closure $choice */
             $choice = collect([$fnUpVote, $fnDownVote])->random();
             $choice($factory);
-
-            $seeded++;
-            ds("task $comment->task_id comment $comment->id project participant vote $seeded / $seed_total");
         });
     }
 

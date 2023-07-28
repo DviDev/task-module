@@ -17,7 +17,7 @@ use Modules\Task\Entities\TaskCategory\TaskCategoryProps;
  * @property-read ProjectModel $project
  * @property-read User $user
  * @method TaskCategoryEntityModel toEntity()
- * @method static TaskCategoryFactory factory()
+ * @method static TaskCategoryFactory factory($count = null, $state = [])
  */
 class TaskCategoryModel extends BaseModel
 {
