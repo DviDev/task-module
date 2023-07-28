@@ -2,6 +2,7 @@
 namespace Modules\Task\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Modules\Base\Factories\BaseFactory;
 use Modules\Task\Entities\TaskBoardTasks\TaskBoardTasksEntityModel;
 use Modules\Task\Models\TaskBoardTasksModel;
 
@@ -9,7 +10,7 @@ use Modules\Task\Models\TaskBoardTasksModel;
  * @method TaskBoardTasksModel create(array $attributes = [])
  * @method TaskBoardTasksModel make(array $attributes = [])
  */
-class TaskBoardTasksFactory extends Factory
+class TaskBoardTasksFactory extends BaseFactory
 {
     /**
      * The name of the factory's corresponding model.

@@ -2,6 +2,7 @@
 namespace Modules\Task\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Modules\Base\Factories\BaseFactory;
 use Modules\Task\Entities\Task\TaskEntityModel;
 use Modules\Task\Entities\Task\TaskPriorityEnum;
 use Modules\Task\Entities\Task\TaskStatusEnum;
@@ -12,7 +13,7 @@ use Modules\Task\Models\TaskModel;
  * @method TaskModel create(array $attributes = [])
  * @method TaskModel make(array $attributes = [])
  */
-class TaskFactory extends Factory
+class TaskFactory extends BaseFactory
 {
     /**
      * The name of the factory's corresponding model.

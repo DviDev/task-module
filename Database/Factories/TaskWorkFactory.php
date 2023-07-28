@@ -2,6 +2,7 @@
 namespace Modules\Task\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Modules\Base\Factories\BaseFactory;
 use Modules\Task\Entities\TaskWork\TaskWorkEntityModel;
 use Modules\Task\Models\TaskWorkModel;
 
@@ -9,7 +10,7 @@ use Modules\Task\Models\TaskWorkModel;
  * @method TaskWorkModel create(array $attributes = [])
  * @method TaskWorkModel make(array $attributes = [])
  */
-class TaskWorkFactory extends Factory
+class TaskWorkFactory extends BaseFactory
 {
     /**
      * The name of the factory's corresponding model.

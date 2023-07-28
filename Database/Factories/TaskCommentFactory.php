@@ -2,6 +2,7 @@
 namespace Modules\Task\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Modules\Base\Factories\BaseFactory;
 use Modules\Task\Entities\TaskComment\TaskCommentEntityModel;
 use Modules\Task\Models\TaskCommentModel;
 
@@ -9,7 +10,7 @@ use Modules\Task\Models\TaskCommentModel;
  * @method TaskCommentModel create(array $attributes = [])
  * @method TaskCommentModel make(array $attributes = [])
  */
-class TaskCommentFactory extends Factory
+class TaskCommentFactory extends BaseFactory
 {
     /**
      * The name of the factory's corresponding model.
