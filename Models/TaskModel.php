@@ -6,6 +6,8 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Modules\App\Models\EntityItemModel;
+use Modules\App\Services\Message\HasMessage;
 use Modules\Base\Models\BaseModel;
 use Modules\Project\Models\ProjectModel;
 use Modules\Task\Database\Factories\TaskFactory;
@@ -18,6 +20,7 @@ use Modules\Workspace\Models\WorkspaceModel;
  * @link https://github.com/DaviMenezes
  * @property-read User $owner
  * @property-read ProjectModel $project
+ * @property-read EntityItemModel $entity
  * @property-read WorkspaceModel $workspace
  * @property-read User $recipient
  * @method TaskEntityModel toEntity()
@@ -27,6 +30,7 @@ class TaskModel extends BaseModel
 {
     use HasFactory;
     use TaskProps;
+    use HasMessage;
 
     protected $casts = [
         'active' => 'boolean',

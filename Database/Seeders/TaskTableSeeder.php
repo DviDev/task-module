@@ -5,6 +5,10 @@ namespace Modules\Task\Database\Seeders;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
+use Modules\App\Entities\MessageVote\MessageVoteEntityModel;
+use Modules\App\Models\EntityItemModel;
+use Modules\App\Models\MessageModel;
+use Modules\App\Models\MessageVoteModel;
 use Modules\Project\Models\ProjectModel;
 use Modules\Task\Entities\Task\TaskEntityModel;
 use Modules\Task\Entities\TaskBoard\TaskBoardEntityModel;
@@ -76,18 +80,24 @@ class TaskTableSeeder extends Seeder
     function createTaskComments(TaskModel $task, User $user): void
     {
         $seed_total = config('app.SEED_MODULE_COUNT', 3);
-        TaskCommentModel::factory($seed_total)
-            ->for($task, 'task')->for($user, 'user')
-            ->afterCreating(function (TaskCommentModel $comment) use ($user, $seed_total, &$seeded) {
-                $this->createCommentVotes($comment);
+
+        $entity = EntityItemModel::factory()->create();
+        $task->entity_id = $entity->id;
+        $task->save();
+
+        MessageModel::factory($seed_total)
+            ->for($entity, 'entity')
+            ->for($user, 'user')
+            ->afterCreating(function (MessageModel $comment) use ($user, $task) {
+                $this->createCommentVotes($comment, $task);
             })
             ->create();
     }
 
-    function createCommentVotes(TaskCommentModel $comment): void
+    function createCommentVotes(MessageModel $comment, TaskModel $task): void
     {
-        $comment->task->project->participants()->each(function (User $user) use ($comment) {
-            $p = TaskCommentUpVoteEntityModel::props();
+        $task->project->participants()->each(function (User $user) use ($comment) {
+            $p = MessageVoteEntityModel::props();
             $fnUpVote = function ($factory) use ($p, $comment, $user) {
                 $factory->create([$p->up_vote => 1]);
             };
@@ -95,7 +105,7 @@ class TaskTableSeeder extends Seeder
                 $factory->create([$p->down_vote => 1]);
             };
 
-            $factory = TaskCommentUpVoteModel::factory()->for($comment, 'comment')->for($user, 'user');
+            $factory = MessageVoteModel::factory()->for($comment)->for($user);
 
             /**@var \Closure $choice */
             $choice = collect([$fnUpVote, $fnDownVote])->random();

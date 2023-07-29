@@ -20,31 +20,31 @@ return new class extends Migration
             $table->id();
 
             $p = TaskEntityModel::props(null, true);
+
+            $table->foreignId($p->entity_id)->nullable()->references('id')->on('app_entities')
+                ->cascadeOnUpdate()->restrictOnDelete();
+
+            $table->foreignId($p->owner_id)->references('id')->on('users')
+                ->cascadeOnUpdate()->restrictOnDelete();
+
+            $table->foreignId($p->workspace_id)->references('id')->on('workspaces')
+                ->cascadeOnUpdate()->restrictOnDelete();
+
+            $table->foreignId($p->project_id)->nullable()->references('id')->on('projects')
+                ->cascadeOnUpdate()->restrictOnDelete();
+
+            $table->foreignId($p->category_id)->nullable()->references('id')->on('task_categories')
+                ->cascadeOnUpdate()->nullOnDelete();
+
+            $table->foreignId($p->parent_id)->nullable()->references('id')->on('tasks')
+                ->cascadeOnUpdate()->nullOnDelete();
+
+            $table->foreignId($p->recipient_user_id)->nullable()->references('id')->on('users')
+                ->cascadeOnUpdate()->nullOnDelete();
+
             $table->string($p->name, 150);
             $table->mediumText($p->description)->nullable();
-            $table->foreignId($p->owner_id)
-                ->references('id')->on('users')
-                ->cascadeOnUpdate()->restrictOnDelete();
-            $table->foreignId($p->workspace_id)
-                ->references('id')->on('workspaces')
-                ->cascadeOnUpdate()->restrictOnDelete();
-            $table->foreignId($p->project_id)
-                ->nullable()
-                ->references('id')->on('projects')
-                ->cascadeOnUpdate()->restrictOnDelete();
-            $table->foreignId($p->category_id)
-                ->nullable()
-                ->references('id')->on('task_categories')
-                ->cascadeOnUpdate()->nullOnDelete();
             $table->mediumText($p->solution)->nullable();
-            $table->foreignId($p->parent_id)
-                ->nullable()
-                ->references('id')->on('tasks')
-                ->cascadeOnUpdate()->nullOnDelete();
-            $table->foreignId($p->recipient_user_id)
-                ->nullable()
-                ->references('id')->on('users')
-                ->cascadeOnUpdate()->nullOnDelete();
             $table->integer($p->time_estimate)->unsigned()->nullable();
             $table->dateTime($p->start_date)->nullable();
             $table->date($p->deadline)->nullable();
