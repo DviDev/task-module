@@ -4,8 +4,6 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Modules\Task\Entities\Task\TaskEntityModel;
-use Modules\Task\Entities\Task\TaskRepeatTypeEnum;
-use Modules\Task\Entities\Task\TaskStatusEnum;
 
 return new class extends Migration
 {
@@ -49,11 +47,11 @@ return new class extends Migration
             $table->dateTime($p->start_date)->nullable();
             $table->date($p->deadline)->nullable();
             $table->char($p->priority);
-            $table->enum($p->status, TaskStatusEnum::toArray());
+            $table->char($p->status);//TaskStatusEnum::toArray()
             $table->smallInteger($p->num_order)->unsigned()->nullable();
             $table->tinyInteger($p->percent_completed)->unsigned()->nullable();
             $table->date($p->repeat_end)->nullable();
-            $table->enum($p->repeat_type, TaskRepeatTypeEnum::toArray())->nullable();
+            $table->char($p->repeat_type)->nullable();//TaskRepeatTypeEnum::toArray()
             $table->smallInteger($p->repeat_num)->unsigned()->nullable();
             $table->char($p->active, 1)->nullable();
 
