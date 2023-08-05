@@ -3,8 +3,8 @@
 namespace Modules\Task\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Modules\Base\Factories\BaseFactory;
 use Modules\Base\Models\BaseModel;
-use Modules\Task\Database\Factories\TaskHistoryTypeFactory;
 use Modules\Task\Entities\TaskHistoryType\TaskHistoryTypeEntityModel;
 use Modules\Task\Entities\TaskHistoryType\TaskHistoryTypeProps;
 
@@ -12,7 +12,6 @@ use Modules\Task\Entities\TaskHistoryType\TaskHistoryTypeProps;
  * @author Davi Menezes (davimenezes.dev@gmail.com)
  * @link https://github.com/DaviMenezes
  * @method TaskHistoryTypeEntityModel toEntity()
- * @method static TaskHistoryTypeFactory factory()
  */
 class TaskHistoryTypeModel extends BaseModel
 {
@@ -24,9 +23,11 @@ class TaskHistoryTypeModel extends BaseModel
         return TaskHistoryTypeEntityModel::class;
     }
 
-    protected static function newFactory(): TaskHistoryTypeFactory
+    protected static function newFactory(): BaseFactory
     {
-        return new TaskHistoryTypeFactory();
+        return new class extends BaseFactory {
+            protected $model = TaskHistoryTypeModel::class;
+        };
     }
 
     public static function table($alias = null): string

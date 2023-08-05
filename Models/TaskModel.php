@@ -8,9 +8,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Modules\App\Models\EntityItemModel;
 use Modules\App\Services\Message\HasMessage;
+use Modules\Base\Factories\BaseFactory;
 use Modules\Base\Models\BaseModel;
 use Modules\Project\Models\ProjectModel;
-use Modules\Task\Database\Factories\TaskFactory;
 use Modules\Task\Entities\Task\TaskEntityModel;
 use Modules\Task\Entities\Task\TaskProps;
 use Modules\Workspace\Models\WorkspaceModel;
@@ -24,7 +24,6 @@ use Modules\Workspace\Models\WorkspaceModel;
  * @property-read WorkspaceModel $workspace
  * @property-read User $recipient
  * @method TaskEntityModel toEntity()
- * @method static TaskFactory factory()
  */
 class TaskModel extends BaseModel
 {
@@ -50,9 +49,11 @@ class TaskModel extends BaseModel
         return TaskEntityModel::class;
     }
 
-    protected static function newFactory(): TaskFactory
+    protected static function newFactory(): BaseFactory
     {
-        return new TaskFactory();
+        return new class extends BaseFactory {
+            protected $model = TaskModel::class;
+        };
     }
 
     public static function table($alias = null): string

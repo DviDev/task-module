@@ -3,8 +3,8 @@
 namespace Modules\Task\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Modules\Base\Factories\BaseFactory;
 use Modules\Base\Models\BaseModel;
-use Modules\Task\Database\Factories\TaskBoardTaskHistoryFactory;
 use Modules\Task\Entities\TaskBoardTaskHistory\TaskBoardTaskHistoryEntityModel;
 use Modules\Task\Entities\TaskBoardTaskHistory\TaskBoardTaskHistoryProps;
 
@@ -12,7 +12,6 @@ use Modules\Task\Entities\TaskBoardTaskHistory\TaskBoardTaskHistoryProps;
  * @author Davi Menezes (davimenezes.dev@gmail.com)
  * @link https://github.com/DaviMenezes
  * @method TaskBoardTaskHistoryEntityModel toEntity()
- * @method static TaskBoardTaskHistoryFactory factory()
  */
 class TaskBoardTaskHistoryModel extends BaseModel
 {
@@ -24,11 +23,12 @@ class TaskBoardTaskHistoryModel extends BaseModel
         return TaskBoardTaskHistoryEntityModel::class;
     }
 
-    protected static function newFactory(): TaskBoardTaskHistoryFactory
+    protected static function newFactory(): BaseFactory
     {
-        return new TaskBoardTaskHistoryFactory();
+        return new class extends BaseFactory {
+            protected $model = TaskBoardTaskHistoryModel::class;
+        };
     }
-
     public static function table($alias = null): string
     {
         return self::dbTable('task_histories', $alias);

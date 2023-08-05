@@ -5,8 +5,8 @@ namespace Modules\Task\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Modules\Base\Factories\BaseFactory;
 use Modules\Base\Models\BaseModel;
-use Modules\Task\Database\Factories\TaskBoardFactory;
 use Modules\Task\Entities\TaskBoard\TaskBoardEntityModel;
 use Modules\Task\Entities\TaskBoard\TaskBoardProps;
 use Modules\Workspace\Models\WorkspaceModel;
@@ -16,7 +16,6 @@ use Modules\Workspace\Models\WorkspaceModel;
  * @link https://github.com/DaviMenezes
  * @property-read TaskModel $task
  * @method TaskBoardEntityModel toEntity()
- * @method static TaskBoardFactory factory()
  */
 class TaskBoardModel extends BaseModel
 {
@@ -28,11 +27,12 @@ class TaskBoardModel extends BaseModel
         return TaskBoardEntityModel::class;
     }
 
-    protected static function newFactory(): TaskBoardFactory
+    protected static function newFactory(): BaseFactory
     {
-        return new TaskBoardFactory();
+        return new class extends BaseFactory {
+            protected $model = TaskBoardModel::class;
+        };
     }
-
     public static function table($alias = null): string
     {
         return self::dbTable('task_boards', $alias);

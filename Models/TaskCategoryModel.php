@@ -5,9 +5,9 @@ namespace Modules\Task\Models;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Modules\Base\Factories\BaseFactory;
 use Modules\Base\Models\BaseModel;
 use Modules\Project\Models\ProjectModel;
-use Modules\Task\Database\Factories\TaskCategoryFactory;
 use Modules\Task\Entities\TaskCategory\TaskCategoryEntityModel;
 use Modules\Task\Entities\TaskCategory\TaskCategoryProps;
 
@@ -17,7 +17,6 @@ use Modules\Task\Entities\TaskCategory\TaskCategoryProps;
  * @property-read ProjectModel $project
  * @property-read User $user
  * @method TaskCategoryEntityModel toEntity()
- * @method static TaskCategoryFactory factory($count = null, $state = [])
  */
 class TaskCategoryModel extends BaseModel
 {
@@ -29,9 +28,11 @@ class TaskCategoryModel extends BaseModel
         return TaskCategoryEntityModel::class;
     }
 
-    protected static function newFactory(): TaskCategoryFactory
+    protected static function newFactory(): BaseFactory
     {
-        return new TaskCategoryFactory();
+        return new class extends BaseFactory {
+            protected $model = TaskCategoryModel::class;
+        };
     }
 
     public static function table($alias = null): string
