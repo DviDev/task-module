@@ -1,11 +1,11 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 use Modules\Task\Entities\TaskBoardTasks\TaskBoardTasksEntityModel;
 
-class CreateTaskBoardTasks extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -18,9 +18,14 @@ class CreateTaskBoardTasks extends Migration
             $table->id();
 
             $prop = TaskBoardTasksEntityModel::props(null, true);
-            $table->bigInteger($prop->board_id)->unsigned();
-            $table->bigInteger($prop->task_id)->unsigned();
-            $table->timestamp($prop->created_at);
+            $table->foreignId($prop->board_id)
+                ->references('id')->on('task_boards')
+                ->cascadeOnUpdate()->restrictOnDelete();
+
+            $table->foreignId($prop->task_id)
+                ->references('id')->on('tasks')
+                ->cascadeOnUpdate()->restrictOnDelete();
+            $table->timestamp($prop->created_at)->useCurrent();
         });
     }
 
@@ -33,4 +38,4 @@ class CreateTaskBoardTasks extends Migration
     {
         Schema::dropIfExists('task_board_tasks');
     }
-}
+};

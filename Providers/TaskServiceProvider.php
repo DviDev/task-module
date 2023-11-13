@@ -3,6 +3,17 @@
 namespace Modules\Task\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Modules\Task\Http\Livewire\Pages\TasksPage;
+use Modules\Task\Http\Livewire\TaskBoardTable;
+use Modules\Task\Http\Livewire\TaskBoardTaskTable;
+use Modules\Task\Http\Livewire\TaskCategoryTable;
+use Modules\Task\Http\Livewire\TaskCommentTable;
+use Modules\Task\Http\Livewire\TaskCommentVoteTable;
+use Modules\Task\Http\Livewire\TaskHistoryTable;
+use Modules\Task\Http\Livewire\TaskHistoryTypeTable;
+use Modules\Task\Http\Livewire\TaskTable;
+use Modules\Task\Http\Livewire\TaskTagTable;
+use Modules\Task\Http\Livewire\TaskWorkTable;
 
 class TaskServiceProvider extends ServiceProvider
 {
@@ -36,6 +47,18 @@ class TaskServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        \Livewire::component('task::pages', TasksPage::class);
+        \Livewire::component('task::board-table', TaskBoardTable::class);
+        \Livewire::component('task::board-task-table', TaskBoardTaskTable::class);
+        \Livewire::component('task::category-table', TaskCategoryTable::class);
+        \Livewire::component('task::comment-table', TaskCommentTable::class);
+        \Livewire::component('task::comment-vote-table', TaskCommentVoteTable::class);
+        \Livewire::component('task::history-table', TaskHistoryTable::class);
+        \Livewire::component('task::history-type-table', TaskHistoryTypeTable::class);
+        \Livewire::component('task::table', TaskTable::class);
+        \Livewire::component('task::tag--table', TaskTagTable::class);
+        \Livewire::component('task::work-table', TaskWorkTable::class);
+
         $this->app->register(RouteServiceProvider::class);
     }
 

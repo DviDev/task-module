@@ -4,13 +4,16 @@ namespace Modules\Task\Entities\Task;
 
 /**
  * @property $id
- * @property $name
- * @property $description
+ * @property $entity_id
+ * @property $owner_id
+ * @property $workspace_id
  * @property $project_id
  * @property $category_id
- * @property $solution
  * @property $parent_id
- * @property $to_user_id
+ * @property $recipient_user_id
+ * @property $name
+ * @property $description
+ * @property $solution
  * @property $time_estimate
  * @property $start_date
  * @property $deadline
@@ -23,6 +26,8 @@ namespace Modules\Task\Entities\Task;
  * @property $repeat_num
  * @property $active
  * @property $created_at
+ * @property $updated_at
+ * @property $deleted_at
  */
 trait TaskProps
 {

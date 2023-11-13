@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Modules\Task\Entities\TaskTag\TaskTagEntityModel;
+use Modules\Task\Entities\TaskBoardTaskHistory\TaskBoardTaskHistoryEntityModel;
 
 return new class extends Migration
 {
@@ -14,14 +14,17 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('task_tags', function (Blueprint $table) {
+        Schema::create('task_histories', function (Blueprint $table) {
             $table->id();
 
-            $prop = TaskTagEntityModel::props(null, true);
+            $prop = TaskBoardTaskHistoryEntityModel::props(null, true);
             $table->foreignId($prop->task_id)
                 ->references('id')->on('tasks')
                 ->cascadeOnUpdate()->restrictOnDelete();
-            $table->string($prop->tag, 50);
+            $table->dateTime($prop->updated_at)->useCurrent();
+            $table->foreignId($prop->updated_by_user_id)
+                ->references('id')->on('users')
+                ->cascadeOnUpdate()->restrictOnDelete();
         });
     }
 
@@ -32,6 +35,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('task_tags');
+        Schema::dropIfExists('task_histories');
     }
 };
