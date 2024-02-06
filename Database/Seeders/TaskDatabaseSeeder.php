@@ -9,6 +9,7 @@ use Modules\Permission\Database\Seeders\PermissionTableSeeder;
 use Modules\Project\Database\Seeders\ProjectTableSeeder;
 use Modules\Project\Models\ProjectModel;
 use Modules\Project\Models\ProjectModuleModel;
+use Modules\Workspace\Models\WorkspaceModel;
 
 class TaskDatabaseSeeder extends BaseSeeder
 {
@@ -26,6 +27,7 @@ class TaskDatabaseSeeder extends BaseSeeder
         $this->command->info('🤖✔️ Task database done');
 
         $module = ProjectModuleModel::query()->where('name', 'Task')->first();
+        /**@var ProjectModel $project */
         $project = $module->project;
 
 
@@ -34,7 +36,12 @@ class TaskDatabaseSeeder extends BaseSeeder
         $this->call(ProjectTableSeeder::class, parameters: ['project' => $project, 'module' => $module]);
 
         $this->command->warn(PHP_EOL . '🤖 Tasks creating ...');
-        (new TaskTableSeeder())->run($project->user, $project, $project->workspaces()->first());
+        /**@var WorkspaceModel $workspace */
+        $workspace = $project->workspaces()->firstOrCreate([
+            'name' => $project->name . ' Workspace',
+            'user_id' => $project->owner_id
+        ]);
+        (new TaskTableSeeder())->run($project->user, $project, $workspace);
         $this->command->info('🤖✔️ Tasks done');
     }
 }
