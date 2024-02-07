@@ -6,7 +6,7 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Modules\App\Models\EntityItemModel;
+use Modules\App\Models\RecordModel;
 use Modules\App\Services\Message\HasMessage;
 use Modules\Base\Factories\BaseFactory;
 use Modules\Base\Models\BaseModel;
@@ -20,7 +20,7 @@ use Modules\Workspace\Models\WorkspaceModel;
  * @link https://github.com/DaviMenezes
  * @property-read User $owner
  * @property-read ProjectModel $project
- * @property-read EntityItemModel $entity
+ * @property-read RecordModel $entity
  * @property-read WorkspaceModel $workspace
  * @property-read User $recipient
  * @method TaskEntityModel toEntity()

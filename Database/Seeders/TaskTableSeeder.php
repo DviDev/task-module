@@ -5,19 +5,17 @@ namespace Modules\Task\Database\Seeders;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Event;
 use Modules\App\Entities\MessageVote\MessageVoteEntityModel;
-use Modules\App\Models\EntityItemModel;
 use Modules\App\Models\MessageModel;
 use Modules\App\Models\MessageVoteModel;
+use Modules\App\Models\RecordModel;
 use Modules\Project\Models\ProjectModel;
 use Modules\Task\Entities\Task\TaskEntityModel;
 use Modules\Task\Entities\TaskBoard\TaskBoardEntityModel;
-use Modules\Task\Entities\TaskCommentUpVote\TaskCommentUpVoteEntityModel;
 use Modules\Task\Models\TaskBoardModel;
 use Modules\Task\Models\TaskBoardTasksModel;
 use Modules\Task\Models\TaskCategoryModel;
-use Modules\Task\Models\TaskCommentModel;
-use Modules\Task\Models\TaskCommentUpVoteModel;
 use Modules\Task\Models\TaskModel;
 use Modules\Task\Models\TaskTagModel;
 use Modules\Task\Models\TaskWorkModel;
@@ -25,8 +23,15 @@ use Modules\Workspace\Models\WorkspaceModel;
 
 class TaskTableSeeder extends Seeder
 {
-    public function run(User $user, ProjectModel $project, WorkspaceModel $workspace): void
+    /**
+     * @var mixed|null
+     */
+    protected mixed $event;
+
+    public function run(User $user, ProjectModel $project = null, WorkspaceModel $workspace = null, $event = null): void
     {
+        $this->event = $event;
+
         Model::unguard();
 
         $this->createTaskCategories($project, $user);
@@ -51,13 +56,15 @@ class TaskTableSeeder extends Seeder
         $recipient = User::query()->where('id', '<>', $user->id)->first();
 
         $seed_total = config('app.SEED_MODULE_COUNT', 3);
-        $seeded = 0;
         TaskModel::factory($seed_total)
             ->for($user, 'owner')
             ->for($workspace, 'workspace')
             ->for($project, 'project')->for($recipient, 'recipient')
             ->sequence(...$categories)
-            ->afterCreating(function (TaskModel $task) use ($user, $seed_total, &$seeded) {
+            ->afterCreating(function (TaskModel $task) use ($project, $user) {
+                if ($this->event) {
+                    Event::dispatch($this->event, compact('project', 'task'));
+                }
                 $this->createTaskTags($task);
 
                 $this->createTaskComments($task, $user);
@@ -79,13 +86,12 @@ class TaskTableSeeder extends Seeder
 
     function createTaskComments(TaskModel $task, User $user): void
     {
-        $seed_total = config('app.SEED_MODULE_COUNT', 3);
+        $seed_total = config('app.SEED_COMMENT_COUNT', 3);
 
-        $entity = EntityItemModel::factory()->create();
-        $task->entity_id = $entity->id;
+        $entity = RecordModel::factory()->create();
+        $task->record_id = $entity->id;
         $task->save();
 
-        //Todo Substitui por mensagem dentro da social do projeto
         MessageModel::factory($seed_total)
             ->for($entity, 'entity')
             ->for($user, 'user')
