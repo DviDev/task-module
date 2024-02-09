@@ -13,15 +13,14 @@
 
 use Illuminate\Support\Facades\Route;
 use Modules\App\Models\MessageModel;
-use Modules\Project\Models\ProjectModel;
 use Modules\Task\Models\TaskBoardModel;
 use Modules\Task\Models\TaskModel;
 use Modules\Workspace\Models\WorkspaceModel;
 
 Route::prefix('task')->group(function () {
-    Route::get('/project/{project}/tasks', fn(ProjectModel $project) =>
+    /*Route::get('/project/{project}/tasks', fn(ProjectModel $project) =>
         view('task::components.page.tasks_page', compact('project')))
-        ->name('admin.project.tasks');
+        ->name('admin.project.tasks');*/
     Route::get('/workspace/{workspace}/boards', fn(WorkspaceModel $workspace) =>
         view('task::components.page.boards_page', compact('workspace')))
         ->name('admin.task.boards');
