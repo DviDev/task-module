@@ -24,10 +24,9 @@ class TaskDatabaseSeeder extends BaseSeeder
 
         $this->command->warn(PHP_EOL . '🤖 Task database scanning ...');
         (new ScanTableDomain())->scan('task');
-        $this->command->info('🤖✔️ Task database done');
 
+        /**@var ProjectModuleModel $module */
         $module = ProjectModuleModel::query()->where('name', 'Task')->first();
-        /**@var ProjectModel $project */
         $project = $module->project;
 
 
@@ -41,7 +40,12 @@ class TaskDatabaseSeeder extends BaseSeeder
             'name' => $project->name . ' Workspace',
             'user_id' => $project->owner_id
         ]);
-        (new TaskTableSeeder())->run($project->user, $project, $workspace);
-        $this->command->info('🤖✔️ Tasks done');
+        $this->call(TaskTableSeeder::class, parameters: [
+            'user' => $project->user,
+            'project' => $project,
+            'workspace' => $workspace
+        ]);
+
+        $this->command->info('🤖✔️ ' . __CLASS__ . ' done');
     }
 }
