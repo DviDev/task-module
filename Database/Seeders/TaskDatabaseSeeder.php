@@ -20,12 +20,8 @@ class TaskDatabaseSeeder extends BaseSeeder
     {
         Model::unguard();
 
-        $this->command->warn(PHP_EOL . '🤖 Task database scanning ...');
-//        Um projeto será criado para o Modulo de Tarefas
-//        Porem deve ser opcional e habilitar de acordo com configuração do modulo, se houver um evento passado,
-//        então se cria o projeto para mo Modulo
-//        Ter a possibilidade de desabilitar a criação do projeto, pode haver um ganho
-//        de performance significativo no processo de seeder
+        $this->commandWarn(__CLASS__, "🌱 seeding");
+
         (new ScanTableDomain())->scan('task');
 
         /**@var ProjectModuleModel $module */
@@ -39,20 +35,6 @@ class TaskDatabaseSeeder extends BaseSeeder
             $this->call(ProjectTableSeeder::class, parameters: ['project' => $project, 'module' => $module, 'create_tasks' => config('task.SEED_CREATE_MODULO_PROJECT_TASKS')]);
         }
 
-        if (false) {
-//            $this->command->warn(PHP_EOL . '🤖 Tasks creating ...');
-//            /**@var WorkspaceModel $workspace */
-//            $workspace = $project->workspaces()->firstOrCreate([
-//                'name' => $project->name . ' Workspace',
-//                'user_id' => $project->owner_id
-//            ]);
-//            $this->call(TaskTableSeeder::class, parameters: [
-//                'user' => $project->user,
-//                'project' => $project,
-//                'workspace' => $workspace
-//            ]);
-        }
-
-        $this->command->info('🤖✔️ ' . __CLASS__ . ' done');
+        $this->commandInfo(__CLASS__, '✔️');
     }
 }

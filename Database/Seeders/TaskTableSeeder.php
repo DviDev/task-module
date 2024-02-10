@@ -4,12 +4,12 @@ namespace Modules\Task\Database\Seeders;
 
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Event;
 use Modules\App\Entities\MessageVote\MessageVoteEntityModel;
 use Modules\App\Models\MessageModel;
 use Modules\App\Models\MessageVoteModel;
 use Modules\App\Models\RecordModel;
+use Modules\Base\Database\Seeders\BaseSeeder;
 use Modules\Base\Database\Seeders\SeederEventDTO;
 use Modules\Project\Models\ProjectModel;
 use Modules\Task\Entities\TaskBoard\TaskBoardEntityModel;
@@ -20,7 +20,7 @@ use Modules\Task\Models\TaskTagModel;
 use Modules\Task\Models\TaskWorkModel;
 use Modules\Workspace\Models\WorkspaceModel;
 
-class TaskTableSeeder extends Seeder
+class TaskTableSeeder extends BaseSeeder
 {
     protected ?SeederEventDTO $event = null;
     protected ?ProjectModel $project;
