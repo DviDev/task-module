@@ -35,6 +35,6 @@ class TaskDatabaseSeeder extends BaseSeeder
             $this->call(ProjectTableSeeder::class, parameters: ['project' => $project, 'module' => $module, 'create_tasks' => config('task.SEED_CREATE_MODULO_PROJECT_TASKS')]);
         }
 
-        $this->commandInfo(__CLASS__, '✔️');
+        $this->commandInfo(__CLASS__, '🟢 done');
     }
 }
