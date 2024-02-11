@@ -13,9 +13,12 @@
 
 use Illuminate\Support\Facades\Route;
 use Modules\App\Models\MessageModel;
+use Modules\Project\Services\DynamicRoutes;
 use Modules\Task\Models\TaskBoardModel;
 use Modules\Task\Models\TaskModel;
 use Modules\Workspace\Models\WorkspaceModel;
+
+DynamicRoutes::all('Task');
 
 Route::prefix('task')->group(function () {
     /*Route::get('/project/{project}/tasks', fn(ProjectModel $project) =>
