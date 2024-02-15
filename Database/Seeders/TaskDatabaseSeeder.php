@@ -7,7 +7,6 @@ use Modules\Base\Database\Seeders\BaseSeeder;
 use Modules\DBMap\Domains\ScanTableDomain;
 use Modules\Permission\Database\Seeders\PermissionTableSeeder;
 use Modules\Project\Database\Seeders\ProjectTableSeeder;
-use Modules\Project\Models\ProjectModel;
 use Modules\Project\Models\ProjectModuleModel;
 
 class TaskDatabaseSeeder extends BaseSeeder
@@ -17,24 +16,25 @@ class TaskDatabaseSeeder extends BaseSeeder
      *
      * @return void
      */
-    public function run(ProjectModel $project)
+    public function run()
     {
         Model::unguard();
 
-        $this->command->warn(PHP_EOL . '🤖 Task database scanning ...');
-        (new ScanTableDomain())->scan('task');
-        $this->command->info('🤖✔️ Task database done');
+        $this->commandWarn(__CLASS__, "🌱 seeding");
 
+        (new ScanTableDomain())->scan('task');
+
+        /**@var ProjectModuleModel $module */
         $module = ProjectModuleModel::query()->where('name', 'Task')->first();
         $project = $module->project;
 
+        if (config('task.SEED_CREATE_PERMISSIONS')) {
+            $this->call(class: PermissionTableSeeder::class, parameters: ['module' => $module]);
+        }
+        if (config('task.SEED_CREATE_MODULO_PROJECT')) {
+            $this->call(ProjectTableSeeder::class, parameters: ['project' => $project, 'module' => $module, 'create_tasks' => config('task.SEED_CREATE_MODULO_PROJECT_TASKS')]);
+        }
 
-        $this->call(class: PermissionTableSeeder::class, parameters: ['module' => $module]);
-
-        $this->call(ProjectTableSeeder::class, parameters: ['project' => $project, 'module' => $module]);
-
-        $this->command->warn(PHP_EOL . '🤖 Tasks creating ...');
-        (new TaskTableSeeder())->run($project->user, $project, $project->workspaces()->first());
-        $this->command->info('🤖✔️ Tasks done');
+        $this->commandInfo(__CLASS__, '🟢 done');
     }
 }

@@ -3,19 +3,19 @@
 namespace Modules\Task\Repositories;
 
 use Modules\Base\Repository\BaseRepository;
-use Modules\Task\Entities\TaskCategory\TaskCategoryEntityModel;
-use Modules\Task\Models\TaskCategoryModel;
+use Modules\Project\Entities\ProjectSprint\ProjectSprintEntityModel;
+use Modules\Project\Models\ProjectSprintModel;
 
 /**
  * @author Davi Menezes(davimenezes.dev@gmail.com)
  * @link https://github.com/DaviMenezes
  * @method self obj()
- * @method TaskCategoryModel model()
- * @method TaskCategoryEntityModel find($id)
- * @method TaskCategoryModel first()
- * @method TaskCategoryModel findOrNew($id)
- * @method TaskCategoryModel firstOrNew($query)
- * @method TaskCategoryEntityModel findOrFail($id)
+ * @method ProjectSprintModel model()
+ * @method ProjectSprintEntityModel find($id)
+ * @method ProjectSprintModel first()
+ * @method ProjectSprintModel findOrNew($id)
+ * @method ProjectSprintModel firstOrNew($query)
+ * @method ProjectSprintEntityModel findOrFail($id)
  */
 class TaskCategoryRepository extends BaseRepository
 {
@@ -24,6 +24,6 @@ class TaskCategoryRepository extends BaseRepository
      */
     public function modelClass(): string
     {
-        return TaskCategoryModel::class;
+        return ProjectSprintModel::class;
     }
 }

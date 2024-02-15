@@ -11,17 +11,19 @@
 |
 */
 
-use Modules\Project\Models\ProjectModel;
+use Illuminate\Support\Facades\Route;
+use Modules\App\Models\MessageModel;
+use Modules\Project\Services\DynamicRoutes;
 use Modules\Task\Models\TaskBoardModel;
-use Modules\Task\Models\TaskBoardTaskHistoryModel;
-use Modules\Task\Models\TaskCommentModel;
 use Modules\Task\Models\TaskModel;
 use Modules\Workspace\Models\WorkspaceModel;
 
+DynamicRoutes::all('Task');
+
 Route::prefix('task')->group(function () {
-    Route::get('/project/{project}/tasks', fn(ProjectModel $project) =>
+    /*Route::get('/project/{project}/tasks', fn(ProjectModel $project) =>
         view('task::components.page.tasks_page', compact('project')))
-        ->name('admin.project.tasks');
+        ->name('admin.project.tasks');*/
     Route::get('/workspace/{workspace}/boards', fn(WorkspaceModel $workspace) =>
         view('task::components.page.boards_page', compact('workspace')))
         ->name('admin.task.boards');
@@ -40,7 +42,7 @@ Route::prefix('task')->group(function () {
     Route::get('/{task}/comments', fn(TaskModel $task) =>
         view('task::components.page.comments_page', compact('task')))
         ->name('admin.task.comments');
-    Route::get('/comment/{comment}/votes', fn(TaskCommentModel $comment) =>
+    Route::get('/comment/{comment}/votes', fn(MessageModel $comment) =>
         view('task::components.page.comment_votes_page', compact('comment')))
         ->name('admin.task.comment.votes');
     Route::get('/{task}/tags', fn(TaskModel $task) =>
