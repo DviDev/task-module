@@ -8,6 +8,7 @@ use Modules\DBMap\Domains\ScanTableDomain;
 use Modules\Permission\Database\Seeders\PermissionTableSeeder;
 use Modules\Project\Database\Seeders\ProjectTableSeeder;
 use Modules\Project\Models\ProjectModuleModel;
+use Nwidart\Modules\Facades\Module;
 
 class TaskDatabaseSeeder extends BaseSeeder
 {
@@ -22,18 +23,23 @@ class TaskDatabaseSeeder extends BaseSeeder
 
         $this->commandWarn(__CLASS__, "🌱 seeding");
 
-        (new ScanTableDomain())->scan('task');
-
-        /**@var ProjectModuleModel $module */
-        $module = ProjectModuleModel::query()->where('name', 'Task')->first();
-        $project = $module->project;
-
-        if (config('task.SEED_CREATE_PERMISSIONS')) {
-            $this->call(class: PermissionTableSeeder::class, parameters: ['module' => $module]);
+        $modules = collect(Module::allEnabled());
+        if ($modules->contains('DBMap')) {
+            (new ScanTableDomain())->scan('task');
         }
-        if (config('task.SEED_CREATE_MODULO_PROJECT')) {
-            $this->call(ProjectTableSeeder::class, parameters: ['project' => $project, 'module' => $module, 'create_tasks' => config('task.SEED_CREATE_MODULO_PROJECT_TASKS')]);
+        if ($modules->contains('Project')) {
+            /**@var ProjectModuleModel $module */
+            $module = ProjectModuleModel::query()->where('name', 'Task')->first();
+            $project = $module->project;
+
+            if ($modules->contains('Permission') && config('task.SEED_CREATE_PERMISSIONS')) {
+                $this->call(class: PermissionTableSeeder::class, parameters: ['module' => $module]);
+            }
+            if (config('task.SEED_CREATE_MODULO_PROJECT')) {
+                $this->call(ProjectTableSeeder::class, parameters: ['project' => $project, 'module' => $module, 'create_tasks' => config('task.SEED_CREATE_MODULO_PROJECT_TASKS')]);
+            }
         }
+
 
         $this->commandInfo(__CLASS__, '🟢 done');
     }
