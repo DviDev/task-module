@@ -22,6 +22,9 @@ return new class extends Migration
             $table->foreignId($p->record_id)->nullable()->references('id')->on('base_records')
                 ->cascadeOnUpdate()->restrictOnDelete();
 
+            $table->foreignId($p->thread_id)->references('id')->on('threads')
+                ->cascadeOnUpdate()->restrictOnDelete();
+
             $table->foreignId($p->owner_id)->references('id')->on('users')
                 ->cascadeOnUpdate()->restrictOnDelete();
 
