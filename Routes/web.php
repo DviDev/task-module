@@ -12,7 +12,7 @@
 */
 
 use Illuminate\Support\Facades\Route;
-use Modules\Post\Models\MessageModel;
+use Modules\Post\Models\ThreadModel;
 use Modules\Project\Services\DynamicRoutes;
 use Modules\Task\Models\TaskBoardModel;
 use Modules\Task\Models\TaskModel;
@@ -42,7 +42,7 @@ Route::prefix('task')->group(function () {
     Route::get('/{task}/comments', fn(TaskModel $task) =>
         view('task::components.page.comments_page', compact('task')))
         ->name('admin.task.comments');
-    Route::get('/comment/{comment}/votes', fn(MessageModel $comment) =>
+    Route::get('/comment/{comment}/votes', fn(ThreadModel $comment) =>
         view('task::components.page.comment_votes_page', compact('comment')))
         ->name('admin.task.comment.votes');
     Route::get('/{task}/tags', fn(TaskModel $task) =>
