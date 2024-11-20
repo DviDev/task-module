@@ -12,7 +12,7 @@
 */
 
 use Illuminate\Support\Facades\Route;
-use Modules\App\Models\MessageModel;
+use Modules\Post\Models\MessageModel;
 use Modules\Project\Services\DynamicRoutes;
 use Modules\Task\Models\TaskBoardModel;
 use Modules\Task\Models\TaskModel;
