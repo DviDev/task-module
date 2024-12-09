@@ -19,7 +19,10 @@ return new class extends Migration
 
             $p = TaskEntityModel::props(null, true);
 
-            $table->foreignId($p->record_id)->nullable()->references('id')->on('app_records')
+            $table->foreignId($p->record_id)->nullable()->references('id')->on('base_records')
+                ->cascadeOnUpdate()->restrictOnDelete();
+
+            $table->foreignId($p->thread_id)->references('id')->on('threads')
                 ->cascadeOnUpdate()->restrictOnDelete();
 
             $table->foreignId($p->owner_id)->references('id')->on('users')

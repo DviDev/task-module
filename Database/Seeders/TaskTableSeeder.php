@@ -5,12 +5,12 @@ namespace Modules\Task\Database\Seeders;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Event;
-use Modules\App\Entities\MessageVote\MessageVoteEntityModel;
-use Modules\App\Models\MessageModel;
-use Modules\App\Models\MessageVoteModel;
-use Modules\App\Models\RecordModel;
 use Modules\Base\Database\Seeders\BaseSeeder;
 use Modules\Base\Database\Seeders\SeederEventDTO;
+use Modules\Base\Models\RecordModel;
+use Modules\Post\Entities\ThreadVote\ThreadVoteEntityModel;
+use Modules\Post\Models\ThreadModel;
+use Modules\Post\Models\ThreadVoteModel;
 use Modules\Project\Models\ProjectModel;
 use Modules\Task\Entities\TaskBoard\TaskBoardEntityModel;
 use Modules\Task\Models\TaskBoardModel;
@@ -67,7 +67,7 @@ class TaskTableSeeder extends BaseSeeder
 
     function createTaskTags(TaskModel $task): void
     {
-        $seed_total = config('app.SEED_MODULE_CATEGORY_COUNT', 3);
+        $seed_total = config('task.SEED_TASK_TAGS_COUNT', 3);
         TaskTagModel::factory($seed_total)
             ->for($task, 'task')
             ->create();
@@ -75,37 +75,37 @@ class TaskTableSeeder extends BaseSeeder
 
     function createTaskComments(TaskModel $task, User $user): void
     {
-        $seed_total = config('app.SEED_COMMENT_COUNT', 3);
+        $seed_total = config('task.SEED_TASK_COMMENTS_COUNT', 3);
 
         $entity = RecordModel::factory()->create();
         $task->record_id = $entity->id;
         $task->save();
 
-        MessageModel::factory($seed_total)
+        ThreadModel::factory($seed_total)
             ->for($entity, 'entity')
             ->for($user, 'user')
-            ->afterCreating(function (MessageModel $comment) use ($user, $task) {
+            ->afterCreating(function (ThreadModel $comment) use ($user, $task) {
                 $this->createCommentVotes($comment, $task);
             })
             ->create();
     }
 
-    function createCommentVotes(MessageModel $comment, TaskModel $task): void
+    function createCommentVotes(ThreadModel $comment, TaskModel $task): void
     {
         $project = ProjectModel::projectByTaskId($task->id);
         if (!$project) {
             return;
         }
         $project->participants()->each(function (User $user) use ($comment) {
-            $p = MessageVoteEntityModel::props();
+            $p = ThreadVoteEntityModel::props();
             $fnUpVote = function ($factory) use ($p, $comment, $user) {
-                $factory->create([$p->up_vote => 1]);
+                $factory->create([$p->like => 1]);
             };
             $fnDownVote = function ($factory) use ($p, $comment, $user) {
-                $factory->create([$p->down_vote => 1]);
+                $factory->create([$p->dislike => 1]);
             };
 
-            $factory = MessageVoteModel::factory()->for($comment)->for($user);
+            $factory = ThreadVoteModel::factory()->for($comment)->for($user);
 
             /**@var \Closure $choice */
             $choice = collect([$fnUpVote, $fnDownVote])->random();
@@ -115,7 +115,7 @@ class TaskTableSeeder extends BaseSeeder
 
     function createTaskWorks(TaskModel $task, User $user): void
     {
-        TaskWorkModel::factory()->count(config('app.SEED_MODULE_COUNT'))->for($task, 'task')->for($user, 'user')->create();
+        TaskWorkModel::factory()->count(config('task.SEED_TASK_WORKS_COUNT'))->for($task, 'task')->for($user, 'user')->create();
     }
 
     function createTaskBoards(TaskModel $task): void
@@ -139,7 +139,7 @@ class TaskTableSeeder extends BaseSeeder
 
     function createTaskBoard(TaskBoardModel $board, TaskModel $task): void
     {
-        TaskBoardTasksModel::factory()->count(config('app.SEED_TASK_COUNT'))
+        TaskBoardTasksModel::factory()->count(config('task.SEED_TASK_BOARD_TASKS_COUNT'))
             ->for($board, 'board')->for($task, 'task')
             ->create();
     }

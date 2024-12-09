@@ -6,10 +6,11 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Modules\App\Models\RecordModel;
-use Modules\App\Services\Message\HasMessage;
 use Modules\Base\Factories\BaseFactory;
 use Modules\Base\Models\BaseModel;
+use Modules\Base\Models\RecordModel;
+use Modules\Post\Models\ThreadModel;
+use Modules\Post\Services\Message\HasMessage;
 use Modules\Project\Models\ProjectSprintModel;
 use Modules\Task\Entities\Task\TaskEntityModel;
 use Modules\Task\Entities\Task\TaskProps;
@@ -34,6 +35,21 @@ class TaskModel extends BaseModel
         'active' => 'boolean',
         'start_date' => 'datetime'
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function (TaskModel $task) {
+            $task->thread_id = $task->thread_id ?: ThreadModel::query()->create([
+                'content' => $task->name,
+                'user_id' => auth()->user()->id
+            ])->id;
+            $task->record_id = $task->record_id ?: RecordModel::query()->create([
+                'name' => $task->name
+            ])->id;
+        });
+    }
 
     public function getActiveAttribute()
     {

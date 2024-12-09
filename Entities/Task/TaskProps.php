@@ -5,6 +5,7 @@ namespace Modules\Task\Entities\Task;
 /**
  * @property $id
  * @property $record_id
+ * @property $thread_id
  * @property $owner_id
  * @property $workspace_id
  * @property $parent_id
