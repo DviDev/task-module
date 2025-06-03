@@ -2,21 +2,13 @@
 
 namespace Modules\Task\Tests\Unit;
 
-use App\Models\User;
-use Modules\Project\Entities\Project\ProjectEntityModel;
-use Modules\Project\Models\ProjectModel;
 use Modules\Task\Entities\TaskEntityModel;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class TaskTest extends TestCase
 {
-    /**
-     * A basic unit test example.
-     * @test
-     * @return void
-     */
+    #[Test]
     public function store()
     {
         $this->assertTrue(true);
