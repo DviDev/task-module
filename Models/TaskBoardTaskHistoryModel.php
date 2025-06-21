@@ -10,7 +10,9 @@ use Modules\Task\Entities\TaskBoardTaskHistory\TaskBoardTaskHistoryProps;
 
 /**
  * @author Davi Menezes (davimenezes.dev@gmail.com)
+ *
  * @link https://github.com/DaviMenezes
+ *
  * @method TaskBoardTaskHistoryEntityModel toEntity()
  */
 class TaskBoardTaskHistoryModel extends BaseModel
@@ -25,10 +27,12 @@ class TaskBoardTaskHistoryModel extends BaseModel
 
     protected static function newFactory(): BaseFactory
     {
-        return new class extends BaseFactory {
+        return new class extends BaseFactory
+        {
             protected $model = TaskBoardTaskHistoryModel::class;
         };
     }
+
     public static function table($alias = null): string
     {
         return self::dbTable('task_histories', $alias);

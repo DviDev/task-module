@@ -21,14 +21,14 @@ class TaskDatabaseSeeder extends BaseSeeder
     {
         Model::unguard();
 
-        $this->commandWarn(__CLASS__, "🌱 seeding");
+        $this->commandWarn(__CLASS__, '🌱 seeding');
 
         $modules = collect(Module::allEnabled());
         if ($modules->contains('DBMap')) {
-            (new ScanTableDomain())->scan('task');
+            (new ScanTableDomain)->scan('task');
         }
         if ($modules->contains('Project')) {
-            /**@var ProjectModuleModel $module */
+            /** @var ProjectModuleModel $module */
             $module = ProjectModuleModel::query()->where('name', 'Task')->first();
             $project = $module->project;
 
@@ -39,7 +39,6 @@ class TaskDatabaseSeeder extends BaseSeeder
                 $this->call(ProjectTableSeeder::class, parameters: ['project' => $project, 'module' => $module, 'create_tasks' => config('task.SEED_CREATE_MODULO_PROJECT_TASKS')]);
             }
         }
-
 
         $this->commandInfo(__CLASS__, '🟢 done');
     }

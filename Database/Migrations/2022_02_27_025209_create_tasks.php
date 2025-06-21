@@ -44,11 +44,11 @@ return new class extends Migration
             $table->dateTime($p->start_date)->nullable();
             $table->date($p->deadline)->nullable();
             $table->char($p->priority);
-            $table->char($p->status);//TaskStatusEnum::toArray()
+            $table->char($p->status); // TaskStatusEnum::toArray()
             $table->smallInteger($p->num_order)->unsigned()->nullable();
             $table->tinyInteger($p->percent_completed)->unsigned()->nullable();
             $table->date($p->repeat_end)->nullable();
-            $table->char($p->repeat_type)->nullable();//TaskRepeatTypeEnum::toArray()
+            $table->char($p->repeat_type)->nullable(); // TaskRepeatTypeEnum::toArray()
             $table->smallInteger($p->repeat_num)->unsigned()->nullable();
             $table->char($p->active, 1)->nullable();
 

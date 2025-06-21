@@ -8,7 +8,9 @@ use Modules\Project\Models\ProjectSprintModel;
 
 /**
  * @author Davi Menezes(davimenezes.dev@gmail.com)
+ *
  * @link https://github.com/DaviMenezes
+ *
  * @method self obj()
  * @method ProjectSprintModel model()
  * @method ProjectSprintEntityModel find($id)
@@ -20,7 +22,7 @@ use Modules\Project\Models\ProjectSprintModel;
 class TaskCategoryRepository extends BaseRepository
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function modelClass(): string
     {

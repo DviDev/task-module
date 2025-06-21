@@ -6,17 +6,17 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Carbon;
 use Modules\Project\Models\ProjectModel;
 use Modules\Task\Models\TaskModel;
-use PowerComponents\LivewirePowerGrid\{Button,
-    Column,
-    Detail,
-    Exportable,
-    Footer,
-    Header,
-    PowerGrid,
-    PowerGridComponent,
-    PowerGridEloquent};
+use PowerComponents\LivewirePowerGrid\Button;
+use PowerComponents\LivewirePowerGrid\Column;
+use PowerComponents\LivewirePowerGrid\Detail;
+use PowerComponents\LivewirePowerGrid\Exportable;
 use PowerComponents\LivewirePowerGrid\Filters\Filter;
-use PowerComponents\LivewirePowerGrid\Rules\{RuleActions};
+use PowerComponents\LivewirePowerGrid\Footer;
+use PowerComponents\LivewirePowerGrid\Header;
+use PowerComponents\LivewirePowerGrid\PowerGrid;
+use PowerComponents\LivewirePowerGrid\PowerGridComponent;
+use PowerComponents\LivewirePowerGrid\PowerGridEloquent;
+use PowerComponents\LivewirePowerGrid\Rules\RuleActions;
 use PowerComponents\LivewirePowerGrid\Traits\ActionButton;
 
 final class TaskTable extends PowerGridComponent
@@ -60,8 +60,6 @@ final class TaskTable extends PowerGridComponent
 
     /**
      * PowerGrid datasource.
-     *
-     * @return Collection
      */
     public function datasource(): Collection
     {
@@ -102,9 +100,9 @@ final class TaskTable extends PowerGridComponent
         return PowerGrid::eloquent()
             ->addColumn('id')
             ->addColumn('name')
-            ->addColumn('name_lower', fn(TaskModel $model) => strtolower(e($model->name)))
+            ->addColumn('name_lower', fn (TaskModel $model) => strtolower(e($model->name)))
             ->addColumn('created_at')
-            ->addColumn('created_at_formatted', fn(TaskModel $model) => Carbon::parse($model->created_at)->format('d/m/Y H:i:s'));
+            ->addColumn('created_at_formatted', fn (TaskModel $model) => Carbon::parse($model->created_at)->format('d/m/Y H:i:s'));
     }
 
     /*
@@ -136,7 +134,7 @@ final class TaskTable extends PowerGridComponent
                 ->hidden(),
 
             Column::make('Created at', 'created_at_formatted', 'created_at')
-                ->searchable()
+                ->searchable(),
         ];
     }
 

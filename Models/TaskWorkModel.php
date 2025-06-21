@@ -12,9 +12,12 @@ use Modules\Task\Entities\TaskWork\TaskWorkProps;
 
 /**
  * @author Davi Menezes (davimenezes.dev@gmail.com)
+ *
  * @link https://github.com/DaviMenezes
+ *
  * @property-read TaskModel $task
  * @property-read User $user
+ *
  * @method TaskWorkEntityModel toEntity()
  */
 class TaskWorkModel extends BaseModel
@@ -29,7 +32,8 @@ class TaskWorkModel extends BaseModel
 
     protected static function newFactory(): BaseFactory
     {
-        return new class extends BaseFactory {
+        return new class extends BaseFactory
+        {
             protected $model = TaskWorkModel::class;
         };
     }

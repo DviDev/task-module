@@ -8,7 +8,9 @@ use Modules\Task\Models\TaskTagModel;
 
 /**
  * @author Davi Menezes(davimenezes.dev@gmail.com)
+ *
  * @link https://github.com/DaviMenezes
+ *
  * @method self obj()
  * @method TaskTagModel model()
  * @method TaskTagEntityModel find($id)
@@ -20,7 +22,7 @@ use Modules\Task\Models\TaskTagModel;
 class TaskTagRepository extends BaseRepository
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function modelClass(): string
     {

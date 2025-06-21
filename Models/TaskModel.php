@@ -18,22 +18,25 @@ use Modules\Workspace\Models\WorkspaceModel;
 
 /**
  * @author Davi Menezes (davimenezes.dev@gmail.com)
+ *
  * @link https://github.com/DaviMenezes
+ *
  * @property-read User $owner
  * @property-read RecordModel $entity
  * @property-read WorkspaceModel $workspace
  * @property-read User $recipient
+ *
  * @method TaskEntityModel toEntity()
  */
 class TaskModel extends BaseModel
 {
     use HasFactory;
-    use TaskProps;
     use HasMessage;
+    use TaskProps;
 
     protected $casts = [
         'active' => 'boolean',
-        'start_date' => 'datetime'
+        'start_date' => 'datetime',
     ];
 
     protected static function boot()
@@ -43,19 +46,20 @@ class TaskModel extends BaseModel
         static::creating(function (TaskModel $task) {
             $task->thread_id = $task->thread_id ?: ThreadModel::query()->create([
                 'content' => $task->name,
-                'user_id' => auth()->user()->id
+                'user_id' => auth()->user()->id,
             ])->id;
             $task->record_id = $task->record_id ?: RecordModel::query()->create([
-                'name' => $task->name
+                'name' => $task->name,
             ])->id;
         });
     }
 
     public function getActiveAttribute()
     {
-        if (!$this->attributes['active']) {
+        if (! $this->attributes['active']) {
             return null;
         }
+
         return true;
     }
 
@@ -66,7 +70,8 @@ class TaskModel extends BaseModel
 
     protected static function newFactory(): BaseFactory
     {
-        return new class extends BaseFactory {
+        return new class extends BaseFactory
+        {
             protected $model = TaskModel::class;
         };
     }
@@ -108,9 +113,10 @@ class TaskModel extends BaseModel
 
     public function save(array $options = []): bool
     {
-        if (!$this->active || $this->active == 0) {
+        if (! $this->active || $this->active == 0) {
             $this->active = null;
         }
+
         return parent::save($options);
     }
 }

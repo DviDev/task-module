@@ -7,8 +7,5 @@ namespace Modules\Task\Entities\TaskBoard;
  * @property $workspace_id
  * @property $name
  * @property $order
-*/
-trait TaskBoardProps
-{
-
-}
+ */
+trait TaskBoardProps {}

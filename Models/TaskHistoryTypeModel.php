@@ -10,7 +10,9 @@ use Modules\Task\Entities\TaskHistoryType\TaskHistoryTypeProps;
 
 /**
  * @author Davi Menezes (davimenezes.dev@gmail.com)
+ *
  * @link https://github.com/DaviMenezes
+ *
  * @method TaskHistoryTypeEntityModel toEntity()
  */
 class TaskHistoryTypeModel extends BaseModel
@@ -25,7 +27,8 @@ class TaskHistoryTypeModel extends BaseModel
 
     protected static function newFactory(): BaseFactory
     {
-        return new class extends BaseFactory {
+        return new class extends BaseFactory
+        {
             protected $model = TaskHistoryTypeModel::class;
         };
     }
@@ -38,8 +41,9 @@ class TaskHistoryTypeModel extends BaseModel
     public function getGuarded(): array
     {
         $p = TaskHistoryTypeEntityModel::props();
+
         return collect($p->toArray())->except([
-            $p->id
+            $p->id,
         ])->toArray();
     }
 }
