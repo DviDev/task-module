@@ -8,7 +8,4 @@ namespace Modules\Task\Entities\TaskBoardTasks;
  * @property $task_id
  * @property $created_at
  */
-trait TaskBoardTasksProps
-{
-
-}
+trait TaskBoardTasksProps {}

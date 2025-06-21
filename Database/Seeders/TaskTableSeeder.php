@@ -23,9 +23,10 @@ use Modules\Workspace\Models\WorkspaceModel;
 class TaskTableSeeder extends BaseSeeder
 {
     protected ?SeederEventDTO $event = null;
+
     protected ?ProjectModel $project;
 
-    public function run(User $user, ProjectModel $project = null, WorkspaceModel $workspace = null, $event = null): void
+    public function run(User $user, ?ProjectModel $project = null, ?WorkspaceModel $workspace = null, $event = null): void
     {
         $this->event = $event;
         $this->project = $project;
@@ -34,11 +35,11 @@ class TaskTableSeeder extends BaseSeeder
 
         $this->createTasks($user, $project, $workspace);
 
-        $this->command->info('🤖✔️ ' . __CLASS__ . ' done');
+        $this->command->info('🤖✔️ '.__CLASS__.' done');
 
     }
 
-    protected function createTasks(User $user, ProjectModel $project, WorkspaceModel $workspace = null): void
+    protected function createTasks(User $user, ProjectModel $project, ?WorkspaceModel $workspace = null): void
     {
         $recipient = User::query()->where('id', '<>', $user->id)->first();
 
@@ -49,9 +50,9 @@ class TaskTableSeeder extends BaseSeeder
             $factory->for($workspace, 'workspace');
         }
         $factory->for($recipient, 'recipient')
-            ->afterCreating(function (TaskModel $task) use ($project, $user) {
+            ->afterCreating(function (TaskModel $task) use ($user) {
                 if ($this->event) {
-//                    Event::dispatch($this->event, compact('project', 'task'));
+                    //                    Event::dispatch($this->event, compact('project', 'task'));
                     Event::dispatch($this->event->class(), $this->event->param('task', $task)->payload());
                 }
                 $this->createTaskTags($task);
@@ -65,7 +66,7 @@ class TaskTableSeeder extends BaseSeeder
             ->create();
     }
 
-    function createTaskTags(TaskModel $task): void
+    public function createTaskTags(TaskModel $task): void
     {
         $seed_total = config('task.SEED_TASK_TAGS_COUNT', 3);
         TaskTagModel::factory($seed_total)
@@ -73,7 +74,7 @@ class TaskTableSeeder extends BaseSeeder
             ->create();
     }
 
-    function createTaskComments(TaskModel $task, User $user): void
+    public function createTaskComments(TaskModel $task, User $user): void
     {
         $seed_total = config('task.SEED_TASK_COMMENTS_COUNT', 3);
 
@@ -84,41 +85,41 @@ class TaskTableSeeder extends BaseSeeder
         ThreadModel::factory($seed_total)
             ->for($entity, 'entity')
             ->for($user, 'user')
-            ->afterCreating(function (ThreadModel $comment) use ($user, $task) {
+            ->afterCreating(function (ThreadModel $comment) use ($task) {
                 $this->createCommentVotes($comment, $task);
             })
             ->create();
     }
 
-    function createCommentVotes(ThreadModel $comment, TaskModel $task): void
+    public function createCommentVotes(ThreadModel $comment, TaskModel $task): void
     {
         $project = ProjectModel::projectByTaskId($task->id);
-        if (!$project) {
+        if (! $project) {
             return;
         }
         $project->participants()->each(function (User $user) use ($comment) {
             $p = ThreadVoteEntityModel::props();
-            $fnUpVote = function ($factory) use ($p, $comment, $user) {
+            $fnUpVote = function ($factory) use ($p) {
                 $factory->create([$p->like => 1]);
             };
-            $fnDownVote = function ($factory) use ($p, $comment, $user) {
+            $fnDownVote = function ($factory) use ($p) {
                 $factory->create([$p->dislike => 1]);
             };
 
             $factory = ThreadVoteModel::factory()->for($comment)->for($user);
 
-            /**@var \Closure $choice */
+            /** @var \Closure $choice */
             $choice = collect([$fnUpVote, $fnDownVote])->random();
             $choice($factory);
         });
     }
 
-    function createTaskWorks(TaskModel $task, User $user): void
+    public function createTaskWorks(TaskModel $task, User $user): void
     {
         TaskWorkModel::factory()->count(config('task.SEED_TASK_WORKS_COUNT'))->for($task, 'task')->for($user, 'user')->create();
     }
 
-    function createTaskBoards(TaskModel $task): void
+    public function createTaskBoards(TaskModel $task): void
     {
         $board = TaskBoardEntityModel::props();
 
@@ -137,7 +138,7 @@ class TaskTableSeeder extends BaseSeeder
             })->create();
     }
 
-    function createTaskBoard(TaskBoardModel $board, TaskModel $task): void
+    public function createTaskBoard(TaskBoardModel $board, TaskModel $task): void
     {
         TaskBoardTasksModel::factory()->count(config('task.SEED_TASK_BOARD_TASKS_COUNT'))
             ->for($board, 'board')->for($task, 'task')

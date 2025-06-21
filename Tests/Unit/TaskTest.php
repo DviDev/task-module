@@ -12,17 +12,17 @@ class TaskTest extends TestCase
     public function store()
     {
         $this->assertTrue(true);
-//        return;
-//        $project = ProjectEntityModel::props();
-//        $project->name = 'Project test';
-//        $project->save();
-//
-//
-//        $projectModel = ProjectModel::factory()->create();
-//
-//        $task = TaskEntityModel::props();
-//        $task->name = 'Task test';
-//        $task->project_id = 1;
-//        $this->post(route('task.create'), );
+        //        return;
+        //        $project = ProjectEntityModel::props();
+        //        $project->name = 'Project test';
+        //        $project->save();
+        //
+        //
+        //        $projectModel = ProjectModel::factory()->create();
+        //
+        //        $task = TaskEntityModel::props();
+        //        $task->name = 'Task test';
+        //        $task->project_id = 1;
+        //        $this->post(route('task.create'), );
     }
 }

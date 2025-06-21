@@ -13,8 +13,11 @@ use Modules\Workspace\Models\WorkspaceModel;
 
 /**
  * @author Davi Menezes (davimenezes.dev@gmail.com)
+ *
  * @link https://github.com/DaviMenezes
+ *
  * @property-read TaskModel $task
+ *
  * @method TaskBoardEntityModel toEntity()
  */
 class TaskBoardModel extends BaseModel
@@ -29,10 +32,12 @@ class TaskBoardModel extends BaseModel
 
     protected static function newFactory(): BaseFactory
     {
-        return new class extends BaseFactory {
+        return new class extends BaseFactory
+        {
             protected $model = TaskBoardModel::class;
         };
     }
+
     public static function table($alias = null): string
     {
         return self::dbTable('task_boards', $alias);

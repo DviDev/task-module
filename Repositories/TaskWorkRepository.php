@@ -8,7 +8,9 @@ use Modules\Task\Models\TaskWorkModel;
 
 /**
  * @author Davi Menezes(davimenezes.dev@gmail.com)
+ *
  * @link https://github.com/DaviMenezes
+ *
  * @method self obj()
  * @method TaskWorkModel model()
  * @method TaskWorkEntityModel find($id)
@@ -20,7 +22,7 @@ use Modules\Task\Models\TaskWorkModel;
 class TaskWorkRepository extends BaseRepository
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function modelClass(): string
     {

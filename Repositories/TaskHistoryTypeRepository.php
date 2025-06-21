@@ -8,7 +8,9 @@ use Modules\Task\Models\TaskHistoryTypeModel;
 
 /**
  * @author Davi Menezes(davimenezes.dev@gmail.com)
+ *
  * @link https://github.com/DaviMenezes
+ *
  * @method self obj()
  * @method TaskHistoryTypeModel model()
  * @method TaskHistoryTypeEntityModel find($id)
@@ -20,7 +22,7 @@ use Modules\Task\Models\TaskHistoryTypeModel;
 class TaskHistoryTypeRepository extends BaseRepository
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function modelClass(): string
     {

@@ -28,7 +28,4 @@ namespace Modules\Task\Entities\Task;
  * @property $updated_at
  * @property $deleted_at
  */
-trait TaskProps
-{
-
-}
+trait TaskProps {}

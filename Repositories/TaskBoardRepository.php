@@ -8,7 +8,9 @@ use Modules\Task\Models\TaskBoardModel;
 
 /**
  * @author Davi Menezes(davimenezes.dev@gmail.com)
+ *
  * @link https://github.com/DaviMenezes
+ *
  * @method self obj()
  * @method TaskBoardModel model()
  * @method TaskBoardEntityModel find($id)
@@ -20,7 +22,7 @@ use Modules\Task\Models\TaskBoardModel;
 class TaskBoardRepository extends BaseRepository
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function modelClass(): string
     {

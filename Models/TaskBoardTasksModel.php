@@ -11,9 +11,12 @@ use Modules\Task\Entities\TaskBoardTasks\TaskBoardTasksProps;
 
 /**
  * @author Davi Menezes (davimenezes.dev@gmail.com)
+ *
  * @link https://github.com/DaviMenezes
+ *
  * @property-read TaskBoardModel $board
  * @property-read TaskModel $task
+ *
  * @method TaskBoardTasksEntityModel toEntity()
  */
 class TaskBoardTasksModel extends BaseModel
@@ -28,10 +31,12 @@ class TaskBoardTasksModel extends BaseModel
 
     protected static function newFactory(): BaseFactory
     {
-        return new class extends BaseFactory {
+        return new class extends BaseFactory
+        {
             protected $model = TaskBoardTasksModel::class;
         };
     }
+
     public static function table($alias = null): string
     {
         return self::dbTable('task_board_tasks', $alias);

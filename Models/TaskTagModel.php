@@ -11,8 +11,11 @@ use Modules\Task\Entities\TaskTag\TaskTagProps;
 
 /**
  * @author Davi Menezes (davimenezes.dev@gmail.com)
+ *
  * @link https://github.com/DaviMenezes
+ *
  * @property-read TaskModel $task
+ *
  * @method TaskTagEntityModel toEntity()
  */
 class TaskTagModel extends BaseModel
@@ -27,7 +30,8 @@ class TaskTagModel extends BaseModel
 
     protected static function newFactory(): BaseFactory
     {
-        return new class extends BaseFactory {
+        return new class extends BaseFactory
+        {
             protected $model = TaskTagModel::class;
         };
     }

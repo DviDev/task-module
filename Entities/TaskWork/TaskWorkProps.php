@@ -13,7 +13,4 @@ namespace Modules\Task\Entities\TaskWork;
  * @property $updated_at
  * @property $deleted_at
  */
-trait TaskWorkProps
-{
-
-}
+trait TaskWorkProps {}

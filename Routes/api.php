@@ -13,8 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//Route::middleware('auth:api')
+// Route::middleware('auth:api')
 Route::prefix('/task')->group(function () {
     Route::get('list', [\Modules\Task\Http\Controllers\TaskController::class, 'list'])->name('task_list');
-//    return $request->user();
+    //    return $request->user();
 });

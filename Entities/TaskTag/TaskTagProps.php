@@ -7,7 +7,4 @@ namespace Modules\Task\Entities\TaskTag;
  * @property $task_id
  * @property $tag
  */
-trait TaskTagProps
-{
-
-}
+trait TaskTagProps {}

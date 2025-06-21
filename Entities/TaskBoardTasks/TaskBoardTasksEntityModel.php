@@ -3,13 +3,16 @@
 namespace Modules\Task\Entities\TaskBoardTasks;
 
 use Modules\Base\Entities\BaseEntityModel;
-use Modules\Task\Repositories\TaskBoardTasksRepository;
 use Modules\Task\Models\TaskBoardTasksModel;
+use Modules\Task\Repositories\TaskBoardTasksRepository;
 
 /**
  * @author Davi Menezes (davimenezes.dev@gmail.com)
+ *
  * @link https://github.com/DaviMenezes
+ *
  * @property-read TaskBoardTasksModel $model
+ *
  * @method self save()
  * @method static self new()
  * @method static self props($alias = null, $force = null)
