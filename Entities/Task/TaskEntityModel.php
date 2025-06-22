@@ -4,7 +4,6 @@ namespace Modules\Task\Entities\Task;
 
 use Modules\Base\Entities\BaseEntityModel;
 use Modules\Task\Models\TaskModel;
-use Modules\Task\Repositories\TaskRepository;
 
 /**
  * @author Davi Menezes (davimenezes.dev@gmail.com)
@@ -16,14 +15,8 @@ use Modules\Task\Repositories\TaskRepository;
  * @method self save()
  * @method static self new()
  * @method static self props($alias = null, $force = null)
- * @method TaskRepository repository()
  */
 class TaskEntityModel extends BaseEntityModel
 {
     use TaskProps;
-
-    protected function repositoryClass(): string
-    {
-        return TaskRepository::class;
-    }
 }

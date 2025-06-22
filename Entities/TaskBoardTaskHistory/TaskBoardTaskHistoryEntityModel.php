@@ -4,7 +4,6 @@ namespace Modules\Task\Entities\TaskBoardTaskHistory;
 
 use Modules\Base\Entities\BaseEntityModel;
 use Modules\Task\Models\TaskBoardTaskHistoryModel;
-use Modules\Task\Repositories\TaskBoardTaskHistoryRepository;
 
 /**
  * @author Davi Menezes (davimenezes.dev@gmail.com)
@@ -16,14 +15,8 @@ use Modules\Task\Repositories\TaskBoardTaskHistoryRepository;
  * @method self save()
  * @method static self new()
  * @method static self props($alias = null, $force = null)
- * @method TaskBoardTaskHistoryRepository repository()
  */
 class TaskBoardTaskHistoryEntityModel extends BaseEntityModel
 {
     use TaskBoardTaskHistoryProps;
-
-    protected function repositoryClass(): string
-    {
-        return TaskBoardTaskHistoryRepository::class;
-    }
 }
